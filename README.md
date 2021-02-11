@@ -132,6 +132,11 @@ index 1ab31a9056..579d6177a7 100644
 +       </para>
 +       <para>
 +        Does the array contain specified element ?
+```
+
+Maybe remove the extra blank space before question mark.
+
+```diff
 +       </para>
 +       <para>
 +        <literal>ARRAY[1,4,3] @&gt;&gt; 3</literal>
@@ -202,6 +207,16 @@ index 623962d1d8..3cfc64cfe1 100644
  <synopsis>
 -&lt;@ &nbsp; @&gt; &nbsp; = &nbsp; &amp;&amp;
 +&lt;@ @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
+```
+
+To me it looks like the pattern is to insert `&nbsp;` between each operator,
+in which case this should be written:
+
+&lt;@ &nbsp; @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
+
+I.e., "&nbsp;" is missing between "&lt;@" and "@&gt;".
+
+```diff
  </synopsis>
 
     (See <xref linkend="functions-array"/> for the meaning of
@@ -228,6 +243,17 @@ index bf73e32932..9b91582021 100644
         /* Make copy of array input to ensure it doesn't disappear while in use */
 -       ArrayType  *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
 +       ArrayType  *array;
+```
+
+I think the comment above should be changed/moved since the copy
+has been moved and isn't always performed due to the if.
+
+Since `array` is only used in the `else` block,
+couldn't the declaration of `array` be moved to
+the `else` block?
+
+```diff
+
         int32      *nkeys = (int32 *) PG_GETARG_POINTER(1);
         StrategyNumber strategy = PG_GETARG_UINT16(2);
 
@@ -378,6 +404,30 @@ index f7012cc5d9..51e241153f 100644
 +                * match anything.  XXX this diverges from the "NULL=NULL" behavior of
 +                * array_eq, should we act like that?
 +                */
+```
+
+The comment above is copy/pasted from array_contain_compare().
+It seems unnecessary to have this open question, word-by-word,
+on two different places. I think a reference from here to the
+existing similar code would be better. And also to add a comment
+in array_contain_compare() about the existence of this new code
+where the same question is discussed.
+
+If this would be new code, then this question should probably
+be answered before committing, but since this is old code,
+maybe the behaviour now can't be changed anyway, since this
+code has been around since 2006, when it was introduced in this commit:
+
+    commit f5b4d9a9e08199e6bcdb050ef42ea7ec0f7525ca
+    Author: Tom Lane <tgl@sss.pgh.pa.us>
+    Date:   Sun Sep 10 20:14:20 2006 +0000
+
+    If we're going to advertise the array overlap/containment operators,
+    we probably should make them work reliably for all arrays.  Fix code
+    to handle NULLs and multidimensional arrays, move it into arrayfuncs.c.
+    GIN is still restricted to indexing arrays with no null elements, however.
+
+```diff
 +               if (isnull)
 +                       continue;
 +
