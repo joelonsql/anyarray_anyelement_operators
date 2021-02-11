@@ -212,9 +212,9 @@ index 623962d1d8..3cfc64cfe1 100644
 To me it looks like the pattern is to insert `&nbsp;` between each operator,
 in which case this should be written:
 
-&lt;@ &nbsp; @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
+    &lt;@ &nbsp; @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
 
-I.e., "&nbsp;" is missing between "&lt;@" and "@&gt;".
+I.e., `&nbsp;` is missing between `&lt;@` and `@&gt;`.
 
 ```diff
  </synopsis>
