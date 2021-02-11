@@ -1,0 +1,601 @@
+diff --git a/doc/src/sgml/func.sgml b/doc/src/sgml/func.sgml
+index b7150510ab..3d36e88494 100644
+--- a/doc/src/sgml/func.sgml
++++ b/doc/src/sgml/func.sgml
+@@ -17525,6 +17525,34 @@ SELECT NULLIF(value, '(none)') ...
+        </para></entry>
+       </row>
+ 
++      <row>
++       <entry role="func_table_entry"><para role="func_signature">
++        <type>anyarray</type> <literal>@&gt;&gt;</literal> <type>anycompatiblenonarray</type>
++        <returnvalue>boolean</returnvalue>
++       </para>
++       <para>
++        Does the array contain specified element ?
++       </para>
++       <para>
++        <literal>ARRAY[1,4,3] @&gt;&gt; 3</literal>
++        <returnvalue>t</returnvalue>
++       </para></entry>
++      </row>
++
++      <row>
++       <entry role="func_table_entry"><para role="func_signature">
++        <type>anycompatiblenonarray</type> <literal>&lt;&lt;@</literal> <type>anyarray</type>
++        <returnvalue>boolean</returnvalue>
++       </para>
++       <para>
++        Is the specified element contained in the array?
++       </para>
++       <para>
++        <literal>2 &lt;&lt;@ ARRAY[1,7,4,2,6]</literal>
++        <returnvalue>t</returnvalue>
++       </para></entry>
++      </row>
++
+       <row>
+        <entry role="func_table_entry"><para role="func_signature">
+         <type>anyarray</type> <literal>&amp;&amp;</literal> <type>anyarray</type>
+diff --git a/doc/src/sgml/gin.sgml b/doc/src/sgml/gin.sgml
+index d68d12d515..a744609a6b 100644
+--- a/doc/src/sgml/gin.sgml
++++ b/doc/src/sgml/gin.sgml
+@@ -84,7 +84,7 @@
+     </thead>
+     <tbody>
+      <row>
+-      <entry morerows="3" valign="middle"><literal>array_ops</literal></entry>
++      <entry morerows="5" valign="middle"><literal>array_ops</literal></entry>
+       <entry><literal>&amp;&amp; (anyarray,anyarray)</literal></entry>
+      </row>
+      <row>
+@@ -93,6 +93,12 @@
+      <row>
+       <entry><literal>&lt;@ (anyarray,anyarray)</literal></entry>
+      </row>
++     <row>
++      <entry><literal>@&gt;&gt; (anyarray,anycompatiblenonarray)</literal></entry>
++     </row>
++     <row>
++      <entry><literal>&lt;&lt;@ (anycompatiblenonarray,anyarray)</literal></entry>
++     </row>
+      <row>
+       <entry><literal>= (anyarray,anyarray)</literal></entry>
+      </row>
+diff --git a/doc/src/sgml/indices.sgml b/doc/src/sgml/indices.sgml
+index 623962d1d8..3cfc64cfe1 100644
+--- a/doc/src/sgml/indices.sgml
++++ b/doc/src/sgml/indices.sgml
+@@ -326,7 +326,7 @@ SELECT * FROM places ORDER BY location <-> point '(101,456)' LIMIT 10;
+    for arrays, which supports indexed queries using these operators:
+ 
+ <synopsis>
+-&lt;@ &nbsp; @&gt; &nbsp; = &nbsp; &amp;&amp;
++&lt;@ @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
+ </synopsis>
+ 
+    (See <xref linkend="functions-array"/> for the meaning of
+diff --git a/src/backend/access/gin/ginarrayproc.c b/src/backend/access/gin/ginarrayproc.c
+index bf73e32932..9b91582021 100644
+--- a/src/backend/access/gin/ginarrayproc.c
++++ b/src/backend/access/gin/ginarrayproc.c
+@@ -24,6 +24,7 @@
+ #define GinContainsStrategy		2
+ #define GinContainedStrategy	3
+ #define GinEqualStrategy		4
++#define GinContainsElemStrategy	5
+ 
+ 
+ /*
+@@ -79,7 +80,7 @@ Datum
+ ginqueryarrayextract(PG_FUNCTION_ARGS)
+ {
+ 	/* Make copy of array input to ensure it doesn't disappear while in use */
+-	ArrayType  *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
++	ArrayType  *array;
+ 	int32	   *nkeys = (int32 *) PG_GETARG_POINTER(1);
+ 	StrategyNumber strategy = PG_GETARG_UINT16(2);
+ 
+@@ -94,14 +95,31 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
+ 	bool	   *nulls;
+ 	int			nelems;
+ 
+-	get_typlenbyvalalign(ARR_ELEMTYPE(array),
+-						 &elmlen, &elmbyval, &elmalign);
++	if (strategy == GinContainsElemStrategy)
++	{
++		/*
++		* since this function returns a pointer to a
++		* deconstructed array, there is nothing to do if
++		* operand is a single element except to return it
++		* as is and configure the searchmode
++		*/
+ 
+-	deconstruct_array(array,
+-					  ARR_ELEMTYPE(array),
+-					  elmlen, elmbyval, elmalign,
+-					  &elems, &nulls, &nelems);
++		nelems = 1;
++		elems = &PG_GETARG_DATUM(0);
++		nulls = &PG_ARGISNULL(0);
++	}
++	else
++	{
++		array = PG_GETARG_ARRAYTYPE_P_COPY(0);
++
++		get_typlenbyvalalign(ARR_ELEMTYPE(array),
++							 &elmlen, &elmbyval, &elmalign);
+ 
++		deconstruct_array(array,
++						  ARR_ELEMTYPE(array),
++						  elmlen, elmbyval, elmalign,
++						  &elems, &nulls, &nelems);
++	}
+ 	*nkeys = nelems;
+ 	*nullFlags = nulls;
+ 
+@@ -126,6 +144,14 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
+ 			else
+ 				*searchMode = GIN_SEARCH_MODE_INCLUDE_EMPTY;
+ 			break;
++		case GinContainsElemStrategy:
++			/*
++			 * only items that match the queried element
++			 * are considered candidate
++			 */
++
++			*searchMode = GIN_SEARCH_MODE_DEFAULT;
++			break;
+ 		default:
+ 			elog(ERROR, "ginqueryarrayextract: unknown strategy number: %d",
+ 				 strategy);
+@@ -185,6 +211,7 @@ ginarrayconsistent(PG_FUNCTION_ARGS)
+ 				}
+ 			}
+ 			break;
++		case GinContainsElemStrategy:
+ 		case GinContainedStrategy:
+ 			/* we will need recheck */
+ 			*recheck = true;
+@@ -274,6 +301,7 @@ ginarraytriconsistent(PG_FUNCTION_ARGS)
+ 				}
+ 			}
+ 			break;
++		case GinContainsElemStrategy:
+ 		case GinContainedStrategy:
+ 			/* can't do anything else useful here */
+ 			res = GIN_MAYBE;
+diff --git a/src/backend/utils/adt/arrayfuncs.c b/src/backend/utils/adt/arrayfuncs.c
+index f7012cc5d9..51e241153f 100644
+--- a/src/backend/utils/adt/arrayfuncs.c
++++ b/src/backend/utils/adt/arrayfuncs.c
+@@ -4328,6 +4328,136 @@ arraycontained(PG_FUNCTION_ARGS)
+ }
+ 
+ 
++/*
++ * array_contains_elem : checks an array for a specific element adapted from
++ * array_contain_compare() for containment of a single element
++ */
++static bool
++array_contains_elem(AnyArrayType *array, Datum elem,
++				Oid collation,	void **fn_extra)
++{
++	LOCAL_FCINFO(locfcinfo, 2);
++	Oid 		arr_type = AARR_ELEMTYPE(array);
++	TypeCacheEntry *typentry;
++	int 		nelems;
++	int			typlen;
++	bool		typbyval;
++	char		typalign;
++	int			i;
++	array_iter 	it1;
++
++	/*
++	 * We arrange to look up the equality function only once per series of
++	 * calls, assuming the element type doesn't change underneath us.  The
++	 * typcache is used so that we have no memory leakage when being used as
++	 * an index support function.
++	 */
++	typentry = (TypeCacheEntry *)*fn_extra;
++	if (typentry == NULL ||
++		typentry->type_id != arr_type)
++	{
++		typentry = lookup_type_cache(arr_type,
++									 TYPECACHE_EQ_OPR_FINFO);
++		if (!OidIsValid(typentry->eq_opr_finfo.fn_oid))
++			ereport(ERROR,
++					(errcode(ERRCODE_UNDEFINED_FUNCTION),
++					 errmsg("could not identify an equality operator for type %s",
++							format_type_be(arr_type))));
++		*fn_extra = (void *)typentry;
++	}
++	typlen = typentry->typlen;
++	typbyval = typentry->typbyval;
++	typalign = typentry->typalign;
++
++	/*
++	 * Apply the comparison operator to each pair of array elements.
++	 */
++	InitFunctionCallInfoData(*locfcinfo, &typentry->eq_opr_finfo, 2,
++							 collation, NULL, NULL);
++
++	/* Loop over source data */
++	nelems = ArrayGetNItems(AARR_NDIM(array), AARR_DIMS(array));
++	array_iter_setup(&it1, array);
++
++	for (i = 0; i < nelems; i++)
++	{
++		Datum elt1;
++		bool isnull;
++		bool oprresult;
++
++		/* Get element, checking for NULL */
++		elt1 = array_iter_next(&it1, &isnull, i, typlen, typbyval, typalign);
++
++		/*
++		 * We assume that the comparison operator is strict, so a NULL can't
++		 * match anything.  XXX this diverges from the "NULL=NULL" behavior of
++		 * array_eq, should we act like that?
++		 */
++		if (isnull)
++			continue;
++
++		/*
++		 * Apply the operator to the element pair; treat NULL as false
++		 */
++		locfcinfo->args[0].value = elt1;
++		locfcinfo->args[0].isnull = false;
++		locfcinfo->args[1].value = elem;
++		locfcinfo->args[1].isnull = false;
++		locfcinfo->isnull = false;
++		oprresult = DatumGetBool(FunctionCallInvoke(locfcinfo));
++		if (oprresult)
++			return true;
++	}
++
++	return false;
++}
++
++Datum
++arraycontainselem(PG_FUNCTION_ARGS)
++{
++	AnyArrayType *array = PG_GETARG_ANY_ARRAY_P(0);
++	Datum elem = PG_GETARG_DATUM(1);
++	Oid collation = PG_GET_COLLATION();
++	bool result;
++
++	/*
++	 * we don't need to check if the elem is null or if the elem datatype and
++	 * array datatype match since this is handled within internal calls already
++	 * (a property of polymorphic functions)
++	 */
++
++	result = array_contains_elem(array, elem, collation,
++								 &fcinfo->flinfo->fn_extra);
++
++	/* Avoid leaking memory when handed toasted input */
++	AARR_FREE_IF_COPY(array, 0);
++
++	PG_RETURN_BOOL(result);
++}
++
++Datum
++arrayelemcontained(PG_FUNCTION_ARGS)
++{
++	Datum elem = PG_GETARG_DATUM(0);
++	AnyArrayType *array = PG_GETARG_ANY_ARRAY_P(1);
++	Oid collation = PG_GET_COLLATION();
++	bool result;
++
++	/*
++	 * we don't need to check if the elem is null or if the elem datatype and
++	 * array datatype match since this is handled within internal calls already
++	 * (a property of polymorphic functions)
++	 */
++
++	result = array_contains_elem(array, elem, collation,
++								 &fcinfo->flinfo->fn_extra);
++
++	/* Avoid leaking memory when handed toasted input */
++	AARR_FREE_IF_COPY(array, 1);
++
++	PG_RETURN_BOOL(result);
++}
++
+ /*-----------------------------------------------------------------------------
+  * Array iteration functions
+  *		These functions are used to iterate efficiently through arrays
+diff --git a/src/include/catalog/pg_amop.dat b/src/include/catalog/pg_amop.dat
+index 0f7ff63669..a68a84e576 100644
+--- a/src/include/catalog/pg_amop.dat
++++ b/src/include/catalog/pg_amop.dat
+@@ -1242,6 +1242,9 @@
+ { amopfamily => 'gin/array_ops', amoplefttype => 'anyarray',
+   amoprighttype => 'anyarray', amopstrategy => '4',
+   amopopr => '=(anyarray,anyarray)', amopmethod => 'gin' },
++{ amopfamily => 'gin/array_ops', amoplefttype => 'anyarray',
++  amoprighttype => 'anycompatiblenonarray', amopstrategy => '5',
++  amopopr => '@>>(anyarray,anycompatiblenonarray)', amopmethod => 'gin' },
+ 
+ # btree enum_ops
+ { amopfamily => 'btree/enum_ops', amoplefttype => 'anyenum',
+diff --git a/src/include/catalog/pg_operator.dat b/src/include/catalog/pg_operator.dat
+index 0d4eac8f96..a2bfd2a513 100644
+--- a/src/include/catalog/pg_operator.dat
++++ b/src/include/catalog/pg_operator.dat
+@@ -2761,7 +2761,7 @@
+   oprresult => 'bool', oprcode => 'circle_overabove', oprrest => 'positionsel',
+   oprjoin => 'positionjoinsel' },
+ 
+-# overlap/contains/contained for arrays
++# overlap/contains/contained/elemcontained/containselem for arrays
+ { oid => '2750', oid_symbol => 'OID_ARRAY_OVERLAP_OP', descr => 'overlaps',
+   oprname => '&&', oprleft => 'anyarray', oprright => 'anyarray',
+   oprresult => 'bool', oprcom => '&&(anyarray,anyarray)',
+@@ -2778,6 +2778,18 @@
+   oprresult => 'bool', oprcom => '@>(anyarray,anyarray)',
+   oprcode => 'arraycontained', oprrest => 'arraycontsel',
+   oprjoin => 'arraycontjoinsel' },
++{ oid => '6108', oid_symbol => 'OID_ARRAY_ELEMCONTAINED_OP',
++  descr => 'elem is contained by',
++  oprname => '<<@', oprleft => 'anycompatiblenonarray', oprright => 'anyarray',
++  oprresult => 'bool', oprcom => '@>>(anyarray,anycompatiblenonarray)',
++  oprcode => 'arrayelemcontained', oprrest => 'arraycontsel',
++  oprjoin => 'arraycontjoinsel' },
++{ oid => '6105', oid_symbol => 'OID_ARRAY_CONTAINSELEM_OP',
++  descr => 'contains elem',
++  oprname => '@>>', oprleft => 'anyarray', oprright => 'anycompatiblenonarray',
++  oprresult => 'bool', oprcom => '<<@(anycompatiblenonarray,anyarray)',
++  oprcode => 'arraycontainselem', oprrest => 'arraycontsel',
++  oprjoin => 'arraycontjoinsel' },
+ 
+ # capturing operators to preserve pre-8.3 behavior of text concatenation
+ { oid => '2779', descr => 'concatenate',
+diff --git a/src/include/catalog/pg_proc.dat b/src/include/catalog/pg_proc.dat
+index 4e0c9be58c..40fa53e3a0 100644
+--- a/src/include/catalog/pg_proc.dat
++++ b/src/include/catalog/pg_proc.dat
+@@ -8180,6 +8180,12 @@
+ { oid => '2749',
+   proname => 'arraycontained', prorettype => 'bool',
+   proargtypes => 'anyarray anyarray', prosrc => 'arraycontained' },
++{ oid => '6109',
++  proname => 'arrayelemcontained', prorettype => 'bool',
++  proargtypes => 'anycompatiblenonarray anyarray', prosrc => 'arrayelemcontained' },
++{ oid => '6107',
++  proname => 'arraycontainselem', prorettype => 'bool',
++  proargtypes => 'anyarray anycompatiblenonarray', prosrc => 'arraycontainselem' },
+ 
+ # BRIN minmax
+ { oid => '3383', descr => 'BRIN minmax support',
+diff --git a/src/test/regress/expected/arrays.out b/src/test/regress/expected/arrays.out
+index 8bc7721e7d..029cfaccd0 100644
+--- a/src/test/regress/expected/arrays.out
++++ b/src/test/regress/expected/arrays.out
+@@ -758,6 +758,50 @@ SELECT * FROM array_op_test WHERE i @> '{32}' ORDER BY seqno;
+    100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
+ (6 rows)
+ 
++SELECT * FROM array_op_test WHERE i @>> 32 ORDER BY seqno;
++ seqno |                i                |                                                                 t                                                                  
++-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
++     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
++    74 | {32}                            | {AAAAAAAAAAAAAAAA1729,AAAAAAAAAAAAA22860,AAAAAA99807,AAAAA17383,AAAAAAAAAAAAAAA67062,AAAAAAAAAAA15165,AAAAAAAAAAA50956}
++    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
++    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
++    98 | {38,34,32,89}                   | {AAAAAAAAAAAAAAAAAA71621,AAAA8857,AAAAAAAAAAAAAAAAAAA65037,AAAAAAAAAAAAAAAA31334,AAAAAAAAAA48845}
++   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
++(6 rows)
++
++SELECT * FROM array_op_test WHERE i @>> 32::smallint ORDER BY seqno;
++ seqno |                i                |                                                                 t                                                                  
++-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
++     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
++    74 | {32}                            | {AAAAAAAAAAAAAAAA1729,AAAAAAAAAAAAA22860,AAAAAA99807,AAAAA17383,AAAAAAAAAAAAAAA67062,AAAAAAAAAAA15165,AAAAAAAAAAA50956}
++    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
++    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
++    98 | {38,34,32,89}                   | {AAAAAAAAAAAAAAAAAA71621,AAAA8857,AAAAAAAAAAAAAAAAAAA65037,AAAAAAAAAAAAAAAA31334,AAAAAAAAAA48845}
++   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
++(6 rows)
++
++SELECT * FROM array_op_test WHERE i @>> 32::bigint ORDER BY seqno;
++ seqno |                i                |                                                                 t                                                                  
++-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
++     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
++    74 | {32}                            | {AAAAAAAAAAAAAAAA1729,AAAAAAAAAAAAA22860,AAAAAA99807,AAAAA17383,AAAAAAAAAAAAAAA67062,AAAAAAAAAAA15165,AAAAAAAAAAA50956}
++    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
++    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
++    98 | {38,34,32,89}                   | {AAAAAAAAAAAAAAAAAA71621,AAAA8857,AAAAAAAAAAAAAAAAAAA65037,AAAAAAAAAAAAAAAA31334,AAAAAAAAAA48845}
++   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
++(6 rows)
++
++SELECT * FROM array_op_test WHERE 32 <<@ i ORDER BY seqno;
++ seqno |                i                |                                                                 t                                                                  
++-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
++     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
++    74 | {32}                            | {AAAAAAAAAAAAAAAA1729,AAAAAAAAAAAAA22860,AAAAAA99807,AAAAA17383,AAAAAAAAAAAAAAA67062,AAAAAAAAAAA15165,AAAAAAAAAAA50956}
++    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
++    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
++    98 | {38,34,32,89}                   | {AAAAAAAAAAAAAAAAAA71621,AAAA8857,AAAAAAAAAAAAAAAAAAA65037,AAAAAAAAAAAAAAAA31334,AAAAAAAAAA48845}
++   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
++(6 rows)
++
+ SELECT * FROM array_op_test WHERE i && '{32}' ORDER BY seqno;
+  seqno |                i                |                                                                 t                                                                  
+ -------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+@@ -782,6 +826,32 @@ SELECT * FROM array_op_test WHERE i @> '{17}' ORDER BY seqno;
+     89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
+ (8 rows)
+ 
++SELECT * FROM array_op_test WHERE 17 <<@ i ORDER BY seqno;
++ seqno |                i                |                                                                 t                                                                  
++-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
++     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
++    12 | {17,99,18,52,91,72,0,43,96,23}  | {AAAAA33250,AAAAAAAAAAAAAAAAAAA85420,AAAAAAAAAAA33576}
++    15 | {17,14,16,63,67}                | {AA6416,AAAAAAAAAA646,AAAAA95309}
++    19 | {52,82,17,74,23,46,69,51,75}    | {AAAAAAAAAAAAA73084,AAAAA75968,AAAAAAAAAAAAAAAA14047,AAAAAAA80240,AAAAAAAAAAAAAAAAAAA1205,A68938}
++    53 | {38,17}                         | {AAAAAAAAAAA21658}
++    65 | {61,5,76,59,17}                 | {AAAAAA99807,AAAAA64741,AAAAAAAAAAA53908,AA21643,AAAAAAAAA10012}
++    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
++    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
++(8 rows)
++
++SELECT * FROM array_op_test WHERE i @>> 17 ORDER BY seqno;
++ seqno |                i                |                                                                 t                                                                  
++-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
++     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
++    12 | {17,99,18,52,91,72,0,43,96,23}  | {AAAAA33250,AAAAAAAAAAAAAAAAAAA85420,AAAAAAAAAAA33576}
++    15 | {17,14,16,63,67}                | {AA6416,AAAAAAAAAA646,AAAAA95309}
++    19 | {52,82,17,74,23,46,69,51,75}    | {AAAAAAAAAAAAA73084,AAAAA75968,AAAAAAAAAAAAAAAA14047,AAAAAAA80240,AAAAAAAAAAAAAAAAAAA1205,A68938}
++    53 | {38,17}                         | {AAAAAAAAAAA21658}
++    65 | {61,5,76,59,17}                 | {AAAAAA99807,AAAAA64741,AAAAAAAAAAA53908,AA21643,AAAAAAAAA10012}
++    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
++    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
++(8 rows)
++
+ SELECT * FROM array_op_test WHERE i && '{17}' ORDER BY seqno;
+  seqno |                i                |                                                                 t                                                                  
+ -------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+@@ -963,6 +1033,16 @@ SELECT * FROM array_op_test WHERE i @> '{NULL}' ORDER BY seqno;
+ -------+---+---
+ (0 rows)
+ 
++SELECT * FROM array_op_test WHERE i @>> NULL  ORDER BY seqno;
++ seqno | i | t 
++-------+---+---
++(0 rows)
++
++SELECT * FROM array_op_test WHERE NULL <<@ i ORDER BY seqno;
++ seqno | i | t 
++-------+---+---
++(0 rows)
++
+ SELECT * FROM array_op_test WHERE i && '{NULL}' ORDER BY seqno;
+  seqno | i | t 
+ -------+---+---
+@@ -983,6 +1063,24 @@ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAA72908}' ORDER BY seqno;
+     79 | {45}                  | {AAAAAAAAAA646,AAAAAAAAAAAAAAAAAAA70415,AAAAAA43678,AAAAAAAA72908}
+ (4 rows)
+ 
++SELECT * FROM array_op_test WHERE t @>> 'AAAAAAAA72908' ORDER BY seqno;
++ seqno |           i           |                                                                     t                                                                      
++-------+-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------
++    22 | {11,6,56,62,53,30}    | {AAAAAAAA72908}
++    45 | {99,45}               | {AAAAAAAA72908,AAAAAAAAAAAAAAAAAAA17075,AA88409,AAAAAAAAAAAAAAAAAA36842,AAAAAAA48038,AAAAAAAAAAAAAA10611}
++    72 | {22,1,16,78,20,91,83} | {47735,AAAAAAA56483,AAAAAAAAAAAAA93788,AA42406,AAAAAAAAAAAAA73084,AAAAAAAA72908,AAAAAAAAAAAAAAAAAA61286,AAAAA66674,AAAAAAAAAAAAAAAAA50407}
++    79 | {45}                  | {AAAAAAAAAA646,AAAAAAAAAAAAAAAAAAA70415,AAAAAA43678,AAAAAAAA72908}
++(4 rows)
++
++SELECT * FROM array_op_test WHERE 'AAAAAAAA72908' <<@ t ORDER BY seqno;
++ seqno |           i           |                                                                     t                                                                      
++-------+-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------
++    22 | {11,6,56,62,53,30}    | {AAAAAAAA72908}
++    45 | {99,45}               | {AAAAAAAA72908,AAAAAAAAAAAAAAAAAAA17075,AA88409,AAAAAAAAAAAAAAAAAA36842,AAAAAAA48038,AAAAAAAAAAAAAA10611}
++    72 | {22,1,16,78,20,91,83} | {47735,AAAAAAA56483,AAAAAAAAAAAAA93788,AA42406,AAAAAAAAAAAAA73084,AAAAAAAA72908,AAAAAAAAAAAAAAAAAA61286,AAAAA66674,AAAAAAAAAAAAAAAAA50407}
++    79 | {45}                  | {AAAAAAAAAA646,AAAAAAAAAAAAAAAAAAA70415,AAAAAA43678,AAAAAAAA72908}
++(4 rows)
++
+ SELECT * FROM array_op_test WHERE t && '{AAAAAAAA72908}' ORDER BY seqno;
+  seqno |           i           |                                                                     t                                                                      
+ -------+-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------
+@@ -1000,6 +1098,22 @@ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAAAA646}' ORDER BY seqno;
+     96 | {23,97,43}       | {AAAAAAAAAA646,A87088}
+ (3 rows)
+ 
++SELECT * FROM array_op_test WHERE t @>> 'AAAAAAAAAA646' ORDER BY seqno;
++ seqno |        i         |                                 t                                  
++-------+------------------+--------------------------------------------------------------------
++    15 | {17,14,16,63,67} | {AA6416,AAAAAAAAAA646,AAAAA95309}
++    79 | {45}             | {AAAAAAAAAA646,AAAAAAAAAAAAAAAAAAA70415,AAAAAA43678,AAAAAAAA72908}
++    96 | {23,97,43}       | {AAAAAAAAAA646,A87088}
++(3 rows)
++
++SELECT * FROM array_op_test WHERE 'AAAAAAAAAA646' <<@ t ORDER BY seqno;
++ seqno |        i         |                                 t                                  
++-------+------------------+--------------------------------------------------------------------
++    15 | {17,14,16,63,67} | {AA6416,AAAAAAAAAA646,AAAAA95309}
++    79 | {45}             | {AAAAAAAAAA646,AAAAAAAAAAAAAAAAAAA70415,AAAAAA43678,AAAAAAAA72908}
++    96 | {23,97,43}       | {AAAAAAAAAA646,A87088}
++(3 rows)
++
+ SELECT * FROM array_op_test WHERE t && '{AAAAAAAAAA646}' ORDER BY seqno;
+  seqno |        i         |                                 t                                  
+ -------+------------------+--------------------------------------------------------------------
+diff --git a/src/test/regress/expected/opr_sanity.out b/src/test/regress/expected/opr_sanity.out
+index 254ca06d3d..5de5ab6d13 100644
+--- a/src/test/regress/expected/opr_sanity.out
++++ b/src/test/regress/expected/opr_sanity.out
+@@ -1173,6 +1173,7 @@ ORDER BY 1, 2;
+  <->  | <->
+  <<   | >>
+  <<=  | >>=
++ <<@  | @>>
+  <=   | >=
+  <>   | <>
+  <@   | @>
+@@ -1188,7 +1189,7 @@ ORDER BY 1, 2;
+  ~<=~ | ~>=~
+  ~<~  | ~>~
+  ~=   | ~=
+-(29 rows)
++(30 rows)
+ 
+ -- Likewise for negator pairs.
+ SELECT DISTINCT o1.oprname AS op1, o2.oprname AS op2
+@@ -2029,6 +2030,7 @@ ORDER BY 1, 2, 3;
+        2742 |            2 | @@@
+        2742 |            3 | <@
+        2742 |            4 | =
++       2742 |            5 | @>>
+        2742 |            7 | @>
+        2742 |            9 | ?
+        2742 |           10 | ?|
+@@ -2100,7 +2102,7 @@ ORDER BY 1, 2, 3;
+        4000 |           28 | ^@
+        4000 |           29 | <^
+        4000 |           30 | >^
+-(123 rows)
++(124 rows)
+ 
+ -- Check that all opclass search operators have selectivity estimators.
+ -- This is not absolutely required, but it seems a reasonable thing
+diff --git a/src/test/regress/sql/arrays.sql b/src/test/regress/sql/arrays.sql
+index c40619a8d5..50a24c9684 100644
+--- a/src/test/regress/sql/arrays.sql
++++ b/src/test/regress/sql/arrays.sql
+@@ -319,8 +319,14 @@ SELECT 0 || ARRAY[1,2] || 3 AS "{0,1,2,3}";
+ SELECT ARRAY[1.1] || ARRAY[2,3,4];
+ 
+ SELECT * FROM array_op_test WHERE i @> '{32}' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE i @>> 32 ORDER BY seqno;
++SELECT * FROM array_op_test WHERE i @>> 32::smallint ORDER BY seqno;
++SELECT * FROM array_op_test WHERE i @>> 32::bigint ORDER BY seqno;
++SELECT * FROM array_op_test WHERE 32 <<@ i ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i && '{32}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i @> '{17}' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE 17 <<@ i ORDER BY seqno;
++SELECT * FROM array_op_test WHERE i @>> 17 ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i && '{17}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i @> '{32,17}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i && '{32,17}' ORDER BY seqno;
+@@ -331,12 +337,18 @@ SELECT * FROM array_op_test WHERE i && '{}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i <@ '{}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i = '{NULL}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i @> '{NULL}' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE i @>> NULL  ORDER BY seqno;
++SELECT * FROM array_op_test WHERE NULL <<@ i ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i && '{NULL}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE i <@ '{NULL}' ORDER BY seqno;
+ 
+ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAA72908}' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE t @>> 'AAAAAAAA72908' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE 'AAAAAAAA72908' <<@ t ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE t && '{AAAAAAAA72908}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAAAA646}' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE t @>> 'AAAAAAAAAA646' ORDER BY seqno;
++SELECT * FROM array_op_test WHERE 'AAAAAAAAAA646' <<@ t ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE t && '{AAAAAAAAAA646}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAA72908,AAAAAAAAAA646}' ORDER BY seqno;
+ SELECT * FROM array_op_test WHERE t && '{AAAAAAAA72908,AAAAAAAAAA646}' ORDER BY seqno;
