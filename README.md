@@ -134,7 +134,7 @@ index 1ab31a9056..579d6177a7 100644
 +        Does the array contain specified element ?
 ```
 
-Maybe remove the extra blank space before question mark.
+🧐 Maybe remove the extra blank space before question mark.
 
 ```diff
 +       </para>
@@ -209,7 +209,7 @@ index 623962d1d8..3cfc64cfe1 100644
 +&lt;@ @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
 ```
 
-To me it looks like the pattern is to insert `&nbsp;` between each operator,
+🧐 To me it looks like the pattern is to insert `&nbsp;` between each operator,
 in which case this should be written:
 
     &lt;@ &nbsp; @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
@@ -245,7 +245,7 @@ index bf73e32932..9b91582021 100644
 +       ArrayType  *array;
 ```
 
-I think the comment above should be changed/moved since the copy
+🧐 I think the comment above should be changed/moved since the copy
 has been moved and isn't always performed due to the if.
 
 Since `array` is only used in the `else` block,
@@ -406,7 +406,7 @@ index f7012cc5d9..51e241153f 100644
 +                */
 ```
 
-The comment above is copy/pasted from array_contain_compare().
+🧐 The comment above is copy/pasted from array_contain_compare().
 It seems unnecessary to have this open question, word-by-word,
 on two different places. I think a reference from here to the
 existing similar code would be better. And also to add a comment
