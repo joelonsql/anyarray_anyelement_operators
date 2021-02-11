@@ -1,4 +1,4 @@
-<h1 id="top">🧐🐘<code>review of anyarray_anyelement_operators-v1.patch</code></h1>
+<h1 id="top">🧐🐘<code>anyarray_anyelement_operators-v1.patch</code></h1>
 
 1. [About](#about)
 1. [Installation](#installation)
@@ -60,6 +60,55 @@ Use with:
     $ psql
 
 ```sql
+\a
+\t
+
+--
+-- display 🐘 instead of nothing for NULL values
+--
+\pset null '🐘'
+
+SELECT ARRAY[]::int[] @>> 1;
+f
+
+SELECT ARRAY[1] @>> 1;
+t
+
+SELECT ARRAY[2] @>> 1;
+f
+
+SELECT ARRAY[2,1] @>> 1;
+t
+
+SELECT ARRAY[2,1] @>> 2;
+t
+
+SELECT ARRAY[2,1] @>> 3;
+f
+
+SELECT ARRAY[2,1] @>> NULL;
+🐘
+
+SELECT 1 <<@ ARRAY[]::int[];
+f
+
+SELECT 1 <<@ ARRAY[1];
+t
+
+SELECT 1 <<@ ARRAY[2];
+f
+
+SELECT 1 <<@ ARRAY[2,1];
+t
+
+SELECT 2 <<@ ARRAY[2,1];
+t
+
+SELECT 3 <<@ ARRAY[2,1];
+f
+
+SELECT NULL <<@ ARRAY[2,1];
+🐘
 
 ```
 
