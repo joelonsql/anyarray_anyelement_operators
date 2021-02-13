@@ -1,0 +1,1013 @@
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
+true
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[]
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
+true
+SELECT ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
+true
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[]
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
+true
+SELECT ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
+true
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[]
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
+true
+SELECT ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(2,2),(0,0)']::pg_catalog.box[])
+false
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(2,2),(0,0)']::pg_catalog.box[]
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(2,2),(0,0)']::pg_catalog.box[])
+false
+SELECT ARRAY['(2,2),(0,0)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
+could not identify an equality operator for type box
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['a']::pg_catalog."char"[])
+true
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['a']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog."char" = ANY(ARRAY['a']::pg_catalog.bpchar[])
+true
+SELECT ARRAY['a']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
+failed to find conversion function from "char" to character
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['r']::pg_catalog."char"[])
+false
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['r']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.bpchar[])
+false
+SELECT ARRAY['r']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
+failed to find conversion function from "char" to character
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['a']::pg_catalog."char"[])
+true
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['a']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog."char" = ANY(ARRAY['a']::pg_catalog.bpchar[])
+true
+SELECT ARRAY['a']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
+failed to find conversion function from "char" to character
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['s']::pg_catalog."char"[])
+false
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['s']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'a'::pg_catalog."char" = ANY(ARRAY['s']::pg_catalog.bpchar[])
+false
+SELECT ARRAY['s']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
+failed to find conversion function from "char" to character
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.bpchar[])
+true
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.bpchar[]
+failed to find conversion function from character[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['r']::pg_catalog."char"[])
+true
+SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
+failed to find conversion function from character to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['a']::pg_catalog.bpchar[])
+false
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['a']::pg_catalog.bpchar[]
+failed to find conversion function from character[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['a']::pg_catalog."char"[])
+false
+SELECT ARRAY['a']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
+failed to find conversion function from character to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.bpchar[])
+true
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.bpchar[]
+failed to find conversion function from character[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['r']::pg_catalog."char"[])
+true
+SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
+failed to find conversion function from character to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['b']::pg_catalog.bpchar[])
+false
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['b']::pg_catalog.bpchar[]
+failed to find conversion function from character[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['b']::pg_catalog."char"[])
+false
+SELECT ARRAY['b']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
+failed to find conversion function from character to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.name[])
+true
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.name[]
+failed to find conversion function from name[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.name = ANY(ARRAY['r']::pg_catalog."char"[])
+true
+SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
+failed to find conversion function from name to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['joel']::pg_catalog.name[])
+false
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['joel']::pg_catalog.name[]
+failed to find conversion function from name[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.name = ANY(ARRAY['joel']::pg_catalog."char"[])
+false
+SELECT ARRAY['joel']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
+failed to find conversion function from name to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.name[])
+true
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.name[]
+failed to find conversion function from name[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.name = ANY(ARRAY['r']::pg_catalog."char"[])
+true
+SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
+failed to find conversion function from name to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['regression']::pg_catalog.name[])
+false
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['regression']::pg_catalog.name[]
+failed to find conversion function from name[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog.name = ANY(ARRAY['regression']::pg_catalog."char"[])
+true
+SELECT ARRAY['regression']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
+failed to find conversion function from name to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog."varchar"[])
+true
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog."varchar"[]
+failed to find conversion function from character varying[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['r']::pg_catalog."char"[])
+true
+SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
+failed to find conversion function from character varying to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['NO']::pg_catalog."varchar"[])
+false
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['NO']::pg_catalog."varchar"[]
+failed to find conversion function from character varying[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['NO']::pg_catalog."char"[])
+false
+SELECT ARRAY['NO']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
+failed to find conversion function from character varying to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog."varchar"[])
+true
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog."varchar"[]
+failed to find conversion function from character varying[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['r']::pg_catalog."char"[])
+true
+SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
+failed to find conversion function from character varying to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['c']::pg_catalog."varchar"[])
+false
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['c']::pg_catalog."varchar"[]
+failed to find conversion function from character varying[] to "char"[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['c']::pg_catalog."char"[])
+false
+SELECT ARRAY['c']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
+failed to find conversion function from character varying to "char"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
+true
+SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),100>']::pg_catalog.circle[]
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
+true
+SELECT ARRAY['<(1,2),100>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
+true
+SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),100>']::pg_catalog.circle[]
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
+true
+SELECT ARRAY['<(1,2),100>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
+true
+SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),100>']::pg_catalog.circle[]
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
+true
+SELECT ARRAY['<(1,2),100>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),3>']::pg_catalog.circle[])
+false
+SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),3>']::pg_catalog.circle[]
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),3>']::pg_catalog.circle[])
+false
+SELECT ARRAY['<(1,2),3>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
+could not identify an equality operator for type circle
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
+true
+SELECT ARRAY['0']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
+operator does not exist: smallint[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT '0'::pg_catalog.int2 <<@ ARRAY['0']::pg_catalog.xid[]
+operator does not exist: smallint <<@ xid[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
+true
+SELECT ARRAY['0']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
+operator does not exist: smallint[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
+true
+SELECT ARRAY['0']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
+operator does not exist: smallint[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['10004']::pg_catalog.xid[])
+true
+SELECT '0'::pg_catalog.int2 <<@ ARRAY['10004']::pg_catalog.xid[]
+operator does not exist: smallint <<@ xid[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['10004']::pg_catalog.int2[])
+false
+SELECT ARRAY['10004']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
+operator does not exist: smallint[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '1'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int4[])
+true
+SELECT ARRAY['1']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
+operator does not exist: integer[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '1'::pg_catalog.int4 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT '1'::pg_catalog.int4 <<@ ARRAY['0']::pg_catalog.xid[]
+operator does not exist: integer <<@ xid[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '1'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int4[])
+false
+SELECT ARRAY['0']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
+operator does not exist: integer[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '1'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int4[])
+true
+SELECT ARRAY['1']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
+operator does not exist: integer[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '1'::pg_catalog.int4 = ANY(ARRAY['10004']::pg_catalog.xid[])
+true
+SELECT '1'::pg_catalog.int4 <<@ ARRAY['10004']::pg_catalog.xid[]
+operator does not exist: integer <<@ xid[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '1'::pg_catalog.xid = ANY(ARRAY['10004']::pg_catalog.int4[])
+false
+SELECT ARRAY['10004']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
+operator does not exist: integer[] @>> xid
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['01:22:21']::pg_catalog."time"[])
+false
+SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['01:22:21']::pg_catalog."time"[]
+operator does not exist: interval <<@ time without time zone[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-01:00:00'::pg_catalog."time" = ANY(ARRAY['01:22:21']::pg_catalog."interval"[])
+false
+SELECT ARRAY['01:22:21']::pg_catalog."interval"[] @>> '-01:00:00'::pg_catalog."time"
+invalid input syntax for type time: "-01:00:00"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['01:23:16.5']::pg_catalog."time"[])
+false
+SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['01:23:16.5']::pg_catalog."time"[]
+operator does not exist: interval <<@ time without time zone[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-01:00:00'::pg_catalog."time" = ANY(ARRAY['01:23:16.5']::pg_catalog."interval"[])
+false
+SELECT ARRAY['01:23:16.5']::pg_catalog."interval"[] @>> '-01:00:00'::pg_catalog."time"
+invalid input syntax for type time: "-01:00:00"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
+true
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[]
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
+true
+SELECT ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
+true
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[]
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
+true
+SELECT ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
+true
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[]
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
+true
+SELECT ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.4,-1,-6}']::pg_catalog.line[])
+false
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.4,-1,-6}']::pg_catalog.line[]
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.4,-1,-6}']::pg_catalog.line[])
+false
+SELECT ARRAY['{-0.4,-1,-6}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
+could not identify an equality operator for type line
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
+true
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[]
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
+true
+SELECT ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
+true
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[]
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
+true
+SELECT ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
+true
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[]
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
+true
+SELECT ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[])
+false
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[]
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[])
+false
+SELECT ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
+could not identify an equality operator for type lseg
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['joel']::pg_catalog."char"[])
+false
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['joel']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to name[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['joel']::pg_catalog.name[])
+false
+SELECT ARRAY['joel']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
+failed to find conversion function from "char" to name
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['r']::pg_catalog."char"[])
+false
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['r']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to name[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.name[])
+false
+SELECT ARRAY['r']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
+failed to find conversion function from "char" to name
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['joel']::pg_catalog."char"[])
+false
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['joel']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to name[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['joel']::pg_catalog.name[])
+false
+SELECT ARRAY['joel']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
+failed to find conversion function from "char" to name
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['s']::pg_catalog."char"[])
+false
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['s']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to name[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['s']::pg_catalog.name[])
+false
+SELECT ARRAY['s']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
+failed to find conversion function from "char" to name
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '285471022'::pg_catalog."numeric" = ANY(ARRAY['285471022']::pg_catalog.float4[])
+false
+SELECT '285471022'::pg_catalog."numeric" <<@ ARRAY['285471022']::pg_catalog.float4[]
+true
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '285471022'::pg_catalog.float4 = ANY(ARRAY['285471022']::pg_catalog."numeric"[])
+false
+SELECT ARRAY['285471022']::pg_catalog."numeric"[] @>> '285471022'::pg_catalog.float4
+true
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '285471022'::pg_catalog."numeric" = ANY(ARRAY['285471022']::pg_catalog.float4[])
+false
+SELECT '285471022'::pg_catalog."numeric" <<@ ARRAY['285471022']::pg_catalog.float4[]
+true
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '285471022'::pg_catalog.float4 = ANY(ARRAY['285471022']::pg_catalog."numeric"[])
+false
+SELECT ARRAY['285471022']::pg_catalog."numeric"[] @>> '285471022'::pg_catalog.float4
+true
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
+true
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[]
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
+true
+SELECT ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
+true
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[]
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
+true
+SELECT ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
+true
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[]
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
+true
+SELECT ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[])
+false
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[]
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[])
+false
+SELECT ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
+could not identify an equality operator for type path
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['-']::pg_catalog.regtype[])
+true
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['-']::pg_catalog.regtype[]
+failed to find conversion function from regtype[] to regproc[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regtype = ANY(ARRAY['-']::pg_catalog.regproc[])
+true
+SELECT ARRAY['-']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
+failed to find conversion function from regtype to regproc
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['bigint']::pg_catalog.regtype[])
+false
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['bigint']::pg_catalog.regtype[]
+failed to find conversion function from regtype[] to regproc[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regtype = ANY(ARRAY['bigint']::pg_catalog.regproc[])
+false
+SELECT ARRAY['bigint']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
+function "bigint" does not exist
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['-']::pg_catalog.regtype[])
+true
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['-']::pg_catalog.regtype[]
+failed to find conversion function from regtype[] to regproc[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regtype = ANY(ARRAY['-']::pg_catalog.regproc[])
+true
+SELECT ARRAY['-']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
+failed to find conversion function from regtype to regproc
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['integer']::pg_catalog.regtype[])
+false
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['integer']::pg_catalog.regtype[]
+failed to find conversion function from regtype[] to regproc[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '-'::pg_catalog.regtype = ANY(ARRAY['integer']::pg_catalog.regproc[])
+false
+SELECT ARRAY['integer']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
+function "integer" does not exist
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['-']::pg_catalog.regproc[])
+false
+SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['-']::pg_catalog.regproc[]
+failed to find conversion function from regproc[] to regtype[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'bigint'::pg_catalog.regproc = ANY(ARRAY['-']::pg_catalog.regtype[])
+false
+SELECT ARRAY['-']::pg_catalog.regtype[] @>> 'bigint'::pg_catalog.regproc
+function "bigint" does not exist
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['array_larger']::pg_catalog.regproc[])
+false
+SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['array_larger']::pg_catalog.regproc[]
+failed to find conversion function from regproc[] to regtype[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'bigint'::pg_catalog.regproc = ANY(ARRAY['array_larger']::pg_catalog.regtype[])
+false
+SELECT ARRAY['array_larger']::pg_catalog.regtype[] @>> 'bigint'::pg_catalog.regproc
+type "array_larger" does not exist
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:22:21']::pg_catalog."interval"[])
+true
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:22:21']::pg_catalog."interval"[]
+operator does not exist: time without time zone <<@ interval[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['01:22:21']::pg_catalog."time"[])
+true
+SELECT ARRAY['01:22:21']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
+operator does not exist: time without time zone[] @>> interval
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['-01:00:00']::pg_catalog."interval"[])
+false
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['-01:00:00']::pg_catalog."interval"[]
+operator does not exist: time without time zone <<@ interval[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['-01:00:00']::pg_catalog."time"[])
+false
+SELECT ARRAY['-01:00:00']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
+invalid input syntax for type time: "-01:00:00"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:22:21']::pg_catalog."interval"[])
+true
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:22:21']::pg_catalog."interval"[]
+operator does not exist: time without time zone <<@ interval[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['01:22:21']::pg_catalog."time"[])
+true
+SELECT ARRAY['01:22:21']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
+operator does not exist: time without time zone[] @>> interval
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['-02:00:00']::pg_catalog."interval"[])
+false
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['-02:00:00']::pg_catalog."interval"[]
+operator does not exist: time without time zone <<@ interval[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['-02:00:00']::pg_catalog."time"[])
+false
+SELECT ARRAY['-02:00:00']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
+invalid input syntax for type time: "-02:00:00"
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['c']::pg_catalog."char"[])
+true
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['c']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character varying[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."char" = ANY(ARRAY['c']::pg_catalog."varchar"[])
+true
+SELECT ARRAY['c']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
+failed to find conversion function from "char" to character varying
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['r']::pg_catalog."char"[])
+false
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['r']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character varying[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog."varchar"[])
+false
+SELECT ARRAY['r']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
+failed to find conversion function from "char" to character varying
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['c']::pg_catalog."char"[])
+true
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['c']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character varying[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."char" = ANY(ARRAY['c']::pg_catalog."varchar"[])
+true
+SELECT ARRAY['c']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
+failed to find conversion function from "char" to character varying
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['s']::pg_catalog."char"[])
+false
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['s']::pg_catalog."char"[]
+failed to find conversion function from "char"[] to character varying[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT 'c'::pg_catalog."char" = ANY(ARRAY['s']::pg_catalog."varchar"[])
+false
+SELECT ARRAY['s']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
+failed to find conversion function from "char" to character varying
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
+true
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int2[]
+operator does not exist: xid <<@ smallint[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
+operator does not exist: xid[] @>> smallint
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
+true
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int2[]
+operator does not exist: xid <<@ smallint[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
+operator does not exist: xid[] @>> smallint
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
+true
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int2[]
+operator does not exist: xid <<@ smallint[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
+operator does not exist: xid[] @>> smallint
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int2[])
+false
+SELECT '0'::pg_catalog.xid <<@ ARRAY['1']::pg_catalog.int2[]
+operator does not exist: xid <<@ smallint[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['1']::pg_catalog.xid[])
+false
+SELECT ARRAY['1']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
+operator does not exist: xid[] @>> smallint
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int4[])
+true
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int4[]
+operator does not exist: xid <<@ integer[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int4 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
+operator does not exist: xid[] @>> integer
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int4[])
+false
+SELECT '0'::pg_catalog.xid <<@ ARRAY['1']::pg_catalog.int4[]
+operator does not exist: xid <<@ integer[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int4 = ANY(ARRAY['1']::pg_catalog.xid[])
+false
+SELECT ARRAY['1']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
+operator does not exist: xid[] @>> integer
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int4[])
+true
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int4[]
+operator does not exist: xid <<@ integer[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int4 = ANY(ARRAY['0']::pg_catalog.xid[])
+true
+SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
+operator does not exist: xid[] @>> integer
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['1500']::pg_catalog.int4[])
+false
+SELECT '0'::pg_catalog.xid <<@ ARRAY['1500']::pg_catalog.int4[]
+operator does not exist: xid <<@ integer[]
+
+psql:type-test.sql:165: WARNING:  
+SQL queries produced different results:
+SELECT '0'::pg_catalog.int4 = ANY(ARRAY['1500']::pg_catalog.xid[])
+false
+SELECT ARRAY['1500']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
+operator does not exist: xid[] @>> integer
+
+psql:type-test.sql:165: NOTICE:  
+========================
+ 144 of 21632 tests failed.
+========================
+
