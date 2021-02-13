@@ -121,10 +121,6 @@ CROSS JOIN
   test_values AS b
 ORDER BY 1,2,3,4,5,6
 LOOP
-  _bool1 := NULL;
-  _bool2 := NULL;
-  _error1 := NULL;
-  _error2 := NULL;
   FOREACH _value3 IN ARRAY ARRAY[_value1,_value2] LOOP
     FOREACH _sql_cmd_pair IN ARRAY ARRAY[
       ROW(
@@ -136,6 +132,10 @@ LOOP
         format('SELECT ARRAY[%2$L]::%3$I.%4$I[] @>> %1$L::%5$I.%6$I', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
       )::sql_cmd_pairs
     ] LOOP
+      _bool1 := NULL;
+      _bool2 := NULL;
+      _error1 := NULL;
+      _error2 := NULL;
       BEGIN
         EXECUTE _sql_cmd_pair.sql1
         INTO _bool1;
