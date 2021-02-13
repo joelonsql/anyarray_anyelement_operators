@@ -57,6 +57,18 @@ To run test the `type-test.sql` script, first run the PostgreSQL regressions tes
 
     $ psql -f type-test.sql regression
 
+The test will show any differences found between the `@>>` and `<<@` operator and `ANY()` for
+values of different types, mined by digging through all data produced by the PostgreSQL regression tests.
+
+Here is an example of one problem found:
+
+    psql:type-test.sql:165: WARNING:
+    SQL queries produced different results:
+    SELECT '285575319'::pg_catalog."numeric" = ANY(ARRAY['285575319']::pg_catalog.float4[])
+    false
+    SELECT '285575319'::pg_catalog."numeric" <<@ ARRAY['285575319']::pg_catalog.float4[]
+    true
+
 <h2 id="usage">3. Usage</h2>
 
 Use with:
