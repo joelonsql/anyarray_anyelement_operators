@@ -53,6 +53,10 @@ Patch and compile `PostgreSQL` with:
     
     test=# \q
 
+To run test the `type-test.sql` script, first run the PostgreSQL regressions test, see above, then:
+
+    $ psql -f type-test.sql regression
+
 <h2 id="usage">3. Usage</h2>
 
 Use with:
@@ -402,7 +406,9 @@ the word "pair" seems to imply working with two arrays.
 +               Datum elt1;
 ```
 
-🧐 The name `elt1` originates from the 
+🧐 The name `elt1` originates from the array_contain_compare() function.
+But since this function, array_contains_elem(), doesn't have a `elt2`,
+it would be better to use `elt` as a name here. The same goes for `it1`.
 
 ```diff
 +               bool isnull;
