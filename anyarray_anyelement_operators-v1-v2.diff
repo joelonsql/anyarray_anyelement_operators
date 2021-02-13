@@ -1,0 +1,291 @@
+diff --git a/anyarray_anyelement_operators-v1.patch b/anyarray_anyelement_operators-v2.patch
+index b69a68d..39c51d2 100644
+--- a/anyarray_anyelement_operators-v1.patch
++++ b/anyarray_anyelement_operators-v2.patch
+@@ -1,5 +1,5 @@
+ diff --git a/doc/src/sgml/func.sgml b/doc/src/sgml/func.sgml
+-index b7150510ab..3d36e88494 100644
++index 1ab31a9056..5fc624e621 100644
+ --- a/doc/src/sgml/func.sgml
+ +++ b/doc/src/sgml/func.sgml
+ @@ -17525,6 +17525,34 @@ SELECT NULLIF(value, '(none)') ...
+@@ -12,7 +12,7 @@ index b7150510ab..3d36e88494 100644
+ +        <returnvalue>boolean</returnvalue>
+ +       </para>
+ +       <para>
+-+        Does the array contain specified element ?
+++        Does the array contain specified element?
+ +       </para>
+ +       <para>
+ +        <literal>ARRAY[1,4,3] @&gt;&gt; 3</literal>
+@@ -64,7 +64,7 @@ index d68d12d515..a744609a6b 100644
+        <entry><literal>= (anyarray,anyarray)</literal></entry>
+       </row>
+ diff --git a/doc/src/sgml/indices.sgml b/doc/src/sgml/indices.sgml
+-index 623962d1d8..3cfc64cfe1 100644
++index 623962d1d8..6de6c33c75 100644
+ --- a/doc/src/sgml/indices.sgml
+ +++ b/doc/src/sgml/indices.sgml
+ @@ -326,7 +326,7 @@ SELECT * FROM places ORDER BY location <-> point '(101,456)' LIMIT 10;
+@@ -72,12 +72,12 @@ index 623962d1d8..3cfc64cfe1 100644
+  
+  <synopsis>
+ -&lt;@ &nbsp; @&gt; &nbsp; = &nbsp; &amp;&amp;
+-+&lt;@ @&gt; &nbsp; &lt;&lt;@ @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
+++&lt;@ &nbsp; @&gt; &nbsp; &lt;&lt;@ &nbsp; @&gt;&gt; &nbsp; = &nbsp; &amp;&amp;
+  </synopsis>
+  
+     (See <xref linkend="functions-array"/> for the meaning of
+ diff --git a/src/backend/access/gin/ginarrayproc.c b/src/backend/access/gin/ginarrayproc.c
+-index bf73e32932..9b91582021 100644
++index bf73e32932..1227dd4ba8 100644
+ --- a/src/backend/access/gin/ginarrayproc.c
+ +++ b/src/backend/access/gin/ginarrayproc.c
+ @@ -24,6 +24,7 @@
+@@ -88,16 +88,17 @@ index bf73e32932..9b91582021 100644
+  
+  
+  /*
+-@@ -79,7 +80,7 @@ Datum
++@@ -78,8 +79,7 @@ ginarrayextract_2args(PG_FUNCTION_ARGS)
++ Datum
+  ginqueryarrayextract(PG_FUNCTION_ARGS)
+  {
+- 	/* Make copy of array input to ensure it doesn't disappear while in use */
++-	/* Make copy of array input to ensure it doesn't disappear while in use */
+ -	ArrayType  *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+ +	ArrayType  *array;
+  	int32	   *nkeys = (int32 *) PG_GETARG_POINTER(1);
+  	StrategyNumber strategy = PG_GETARG_UINT16(2);
+  
+-@@ -94,14 +95,31 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
++@@ -94,14 +94,32 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
+  	bool	   *nulls;
+  	int			nelems;
+  
+@@ -122,6 +123,7 @@ index bf73e32932..9b91582021 100644
+ +	}
+ +	else
+ +	{
+++		/* Make copy of array input to ensure it doesn't disappear while in use */
+ +		array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+ +
+ +		get_typlenbyvalalign(ARR_ELEMTYPE(array),
+@@ -167,10 +169,10 @@ index bf73e32932..9b91582021 100644
+  			/* can't do anything else useful here */
+  			res = GIN_MAYBE;
+ diff --git a/src/backend/utils/adt/arrayfuncs.c b/src/backend/utils/adt/arrayfuncs.c
+-index f7012cc5d9..51e241153f 100644
++index f7012cc5d9..9bd1a7e7cd 100644
+ --- a/src/backend/utils/adt/arrayfuncs.c
+ +++ b/src/backend/utils/adt/arrayfuncs.c
+-@@ -4328,6 +4328,136 @@ arraycontained(PG_FUNCTION_ARGS)
++@@ -4328,6 +4328,143 @@ arraycontained(PG_FUNCTION_ARGS)
+  }
+  
+  
+@@ -179,18 +181,23 @@ index f7012cc5d9..51e241153f 100644
+ + * array_contain_compare() for containment of a single element
+ + */
+ +static bool
+-+array_contains_elem(AnyArrayType *array, Datum elem,
+-+				Oid collation,	void **fn_extra)
+++array_contains_elem(AnyArrayType *array, Datum elem, Oid elemtype,
+++					Oid collation,	void **fn_extra)
+ +{
+ +	LOCAL_FCINFO(locfcinfo, 2);
+-+	Oid 		arr_type = AARR_ELEMTYPE(array);
+++	Oid 		arrtype = AARR_ELEMTYPE(array);
+ +	TypeCacheEntry *typentry;
+ +	int 		nelems;
+ +	int			typlen;
+ +	bool		typbyval;
+ +	char		typalign;
+ +	int			i;
+-+	array_iter 	it1;
+++	array_iter 	it;
+++
+++	if (arrtype != elemtype)
+++		ereport(ERROR,
+++				(errcode(ERRCODE_DATATYPE_MISMATCH),
+++				 errmsg("cannot compare arrays of different element types")));
+ +
+ +	/*
+ +	 * We arrange to look up the equality function only once per series of
+@@ -198,46 +205,46 @@ index f7012cc5d9..51e241153f 100644
+ +	 * typcache is used so that we have no memory leakage when being used as
+ +	 * an index support function.
+ +	 */
+-+	typentry = (TypeCacheEntry *)*fn_extra;
+++	typentry = (TypeCacheEntry *) *fn_extra;
+ +	if (typentry == NULL ||
+-+		typentry->type_id != arr_type)
+++		typentry->type_id != arrtype)
+ +	{
+-+		typentry = lookup_type_cache(arr_type,
+++		typentry = lookup_type_cache(arrtype,
+ +									 TYPECACHE_EQ_OPR_FINFO);
+ +		if (!OidIsValid(typentry->eq_opr_finfo.fn_oid))
+ +			ereport(ERROR,
+ +					(errcode(ERRCODE_UNDEFINED_FUNCTION),
+ +					 errmsg("could not identify an equality operator for type %s",
+-+							format_type_be(arr_type))));
+-+		*fn_extra = (void *)typentry;
+++							format_type_be(arrtype))));
+++		*fn_extra = (void *) typentry;
+ +	}
+ +	typlen = typentry->typlen;
+ +	typbyval = typentry->typbyval;
+ +	typalign = typentry->typalign;
+ +
+ +	/*
+-+	 * Apply the comparison operator to each pair of array elements.
+++	 * Apply the comparison operator for the passed element against each
+++	 * element in the array
+ +	 */
+ +	InitFunctionCallInfoData(*locfcinfo, &typentry->eq_opr_finfo, 2,
+ +							 collation, NULL, NULL);
+ +
+ +	/* Loop over source data */
+ +	nelems = ArrayGetNItems(AARR_NDIM(array), AARR_DIMS(array));
+-+	array_iter_setup(&it1, array);
+++	array_iter_setup(&it, array);
+ +
+ +	for (i = 0; i < nelems; i++)
+ +	{
+-+		Datum elt1;
+++		Datum elt;
+ +		bool isnull;
+ +		bool oprresult;
+ +
+ +		/* Get element, checking for NULL */
+-+		elt1 = array_iter_next(&it1, &isnull, i, typlen, typbyval, typalign);
+++		elt = array_iter_next(&it, &isnull, i, typlen, typbyval, typalign);
+ +
+ +		/*
+ +		 * We assume that the comparison operator is strict, so a NULL can't
+-+		 * match anything.  XXX this diverges from the "NULL=NULL" behavior of
+-+		 * array_eq, should we act like that?
+++		 * match anything. refer to the comment in array_contain_compare()
+ +		 */
+ +		if (isnull)
+ +			continue;
+@@ -245,13 +252,13 @@ index f7012cc5d9..51e241153f 100644
+ +		/*
+ +		 * Apply the operator to the element pair; treat NULL as false
+ +		 */
+-+		locfcinfo->args[0].value = elt1;
+++		locfcinfo->args[0].value = elt;
+ +		locfcinfo->args[0].isnull = false;
+ +		locfcinfo->args[1].value = elem;
+ +		locfcinfo->args[1].isnull = false;
+ +		locfcinfo->isnull = false;
+ +		oprresult = DatumGetBool(FunctionCallInvoke(locfcinfo));
+-+		if (oprresult)
+++		if (!locfcinfo->isnull && oprresult)
+ +			return true;
+ +	}
+ +
+@@ -263,6 +270,7 @@ index f7012cc5d9..51e241153f 100644
+ +{
+ +	AnyArrayType *array = PG_GETARG_ANY_ARRAY_P(0);
+ +	Datum elem = PG_GETARG_DATUM(1);
+++	Oid	elemtype = get_fn_expr_argtype(fcinfo->flinfo, 1);
+ +	Oid collation = PG_GET_COLLATION();
+ +	bool result;
+ +
+@@ -272,7 +280,7 @@ index f7012cc5d9..51e241153f 100644
+ +	 * (a property of polymorphic functions)
+ +	 */
+ +
+-+	result = array_contains_elem(array, elem, collation,
+++	result = array_contains_elem(array, elem, elemtype, collation,
+ +								 &fcinfo->flinfo->fn_extra);
+ +
+ +	/* Avoid leaking memory when handed toasted input */
+@@ -284,8 +292,9 @@ index f7012cc5d9..51e241153f 100644
+ +Datum
+ +arrayelemcontained(PG_FUNCTION_ARGS)
+ +{
+-+	Datum elem = PG_GETARG_DATUM(0);
+ +	AnyArrayType *array = PG_GETARG_ANY_ARRAY_P(1);
+++	Datum elem = PG_GETARG_DATUM(0);
+++	Oid	elemtype = get_fn_expr_argtype(fcinfo->flinfo, 0);
+ +	Oid collation = PG_GET_COLLATION();
+ +	bool result;
+ +
+@@ -295,7 +304,7 @@ index f7012cc5d9..51e241153f 100644
+ +	 * (a property of polymorphic functions)
+ +	 */
+ +
+-+	result = array_contains_elem(array, elem, collation,
+++	result = array_contains_elem(array, elem, elemtype, collation,
+ +								 &fcinfo->flinfo->fn_extra);
+ +
+ +	/* Avoid leaking memory when handed toasted input */
+@@ -308,21 +317,21 @@ index f7012cc5d9..51e241153f 100644
+   * Array iteration functions
+   *		These functions are used to iterate efficiently through arrays
+ diff --git a/src/include/catalog/pg_amop.dat b/src/include/catalog/pg_amop.dat
+-index 0f7ff63669..a68a84e576 100644
++index 0f7ff63669..00e265067f 100644
+ --- a/src/include/catalog/pg_amop.dat
+ +++ b/src/include/catalog/pg_amop.dat
+ @@ -1242,6 +1242,9 @@
+  { amopfamily => 'gin/array_ops', amoplefttype => 'anyarray',
+    amoprighttype => 'anyarray', amopstrategy => '4',
+    amopopr => '=(anyarray,anyarray)', amopmethod => 'gin' },
+-+{ amopfamily => 'gin/array_ops', amoplefttype => 'anyarray',
+++{ amopfamily => 'gin/array_ops', amoplefttype => 'anycompatiblearray',
+ +  amoprighttype => 'anycompatiblenonarray', amopstrategy => '5',
+-+  amopopr => '@>>(anyarray,anycompatiblenonarray)', amopmethod => 'gin' },
+++  amopopr => '@>>(anycompatiblearray,anycompatiblenonarray)', amopmethod => 'gin' },
+  
+  # btree enum_ops
+  { amopfamily => 'btree/enum_ops', amoplefttype => 'anyenum',
+ diff --git a/src/include/catalog/pg_operator.dat b/src/include/catalog/pg_operator.dat
+-index 0d4eac8f96..a2bfd2a513 100644
++index 0d4eac8f96..ac566bb6b0 100644
+ --- a/src/include/catalog/pg_operator.dat
+ +++ b/src/include/catalog/pg_operator.dat
+ @@ -2761,7 +2761,7 @@
+@@ -340,21 +349,21 @@ index 0d4eac8f96..a2bfd2a513 100644
+    oprjoin => 'arraycontjoinsel' },
+ +{ oid => '6108', oid_symbol => 'OID_ARRAY_ELEMCONTAINED_OP',
+ +  descr => 'elem is contained by',
+-+  oprname => '<<@', oprleft => 'anycompatiblenonarray', oprright => 'anyarray',
+-+  oprresult => 'bool', oprcom => '@>>(anyarray,anycompatiblenonarray)',
+++  oprname => '<<@', oprleft => 'anycompatiblenonarray', oprright => 'anycompatiblearray',
+++  oprresult => 'bool', oprcom => '@>>(anycompatiblearray,anycompatiblenonarray)',
+ +  oprcode => 'arrayelemcontained', oprrest => 'arraycontsel',
+ +  oprjoin => 'arraycontjoinsel' },
+ +{ oid => '6105', oid_symbol => 'OID_ARRAY_CONTAINSELEM_OP',
+ +  descr => 'contains elem',
+-+  oprname => '@>>', oprleft => 'anyarray', oprright => 'anycompatiblenonarray',
+-+  oprresult => 'bool', oprcom => '<<@(anycompatiblenonarray,anyarray)',
+++  oprname => '@>>', oprleft => 'anycompatiblearray', oprright => 'anycompatiblenonarray',
+++  oprresult => 'bool', oprcom => '<<@(anycompatiblenonarray,anycompatiblearray)',
+ +  oprcode => 'arraycontainselem', oprrest => 'arraycontsel',
+ +  oprjoin => 'arraycontjoinsel' },
+  
+  # capturing operators to preserve pre-8.3 behavior of text concatenation
+  { oid => '2779', descr => 'concatenate',
+ diff --git a/src/include/catalog/pg_proc.dat b/src/include/catalog/pg_proc.dat
+-index 4e0c9be58c..40fa53e3a0 100644
++index 4e0c9be58c..efce9f8a63 100644
+ --- a/src/include/catalog/pg_proc.dat
+ +++ b/src/include/catalog/pg_proc.dat
+ @@ -8180,6 +8180,12 @@
+@@ -363,10 +372,10 @@ index 4e0c9be58c..40fa53e3a0 100644
+    proargtypes => 'anyarray anyarray', prosrc => 'arraycontained' },
+ +{ oid => '6109',
+ +  proname => 'arrayelemcontained', prorettype => 'bool',
+-+  proargtypes => 'anycompatiblenonarray anyarray', prosrc => 'arrayelemcontained' },
+++  proargtypes => 'anycompatiblenonarray anycompatiblearray', prosrc => 'arrayelemcontained' },
+ +{ oid => '6107',
+ +  proname => 'arraycontainselem', prorettype => 'bool',
+-+  proargtypes => 'anyarray anycompatiblenonarray', prosrc => 'arraycontainselem' },
+++  proargtypes => 'anycompatiblearray anycompatiblenonarray', prosrc => 'arraycontainselem' },
+  
+  # BRIN minmax
+  { oid => '3383', descr => 'BRIN minmax support',
