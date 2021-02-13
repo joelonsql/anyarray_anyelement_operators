@@ -55,7 +55,6 @@ LOOP
   FOR _value IN
   EXECUTE format($$SELECT DISTINCT %1$I::text FROM %2$I.%3$I WHERE %1$I IS NOT NULL AND %1$I::text <> '' ORDER BY 1 LIMIT 2$$, _column_name, _schema_name, _table_name)
   LOOP
---    RAISE NOTICE '% <= %.%.%::%.%', _value, _schema_name, _table_name, _column_name, _udt_schema, _udt_name;
     IF NOT EXISTS (SELECT 1 FROM test_values WHERE udt_schema = _udt_schema AND udt_name = _udt_name) THEN
       INSERT INTO test_values (udt_schema, udt_name, value1) VALUES (_udt_schema, _udt_name, _value);
     ELSIF EXISTS (SELECT 1 FROM test_values WHERE udt_schema = _udt_schema AND udt_name = _udt_name AND value1 <> _value AND value2 IS NULL) THEN
@@ -124,12 +123,12 @@ LOOP
   FOREACH _value3 IN ARRAY ARRAY[_value1,_value2] LOOP
     FOREACH _sql_cmd_pair IN ARRAY ARRAY[
       ROW(
-        format('SELECT %1$L::%3$I.%4$I = ANY(ARRAY[%2$L]::%5$I.%6$I[])', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
-        format('SELECT %1$L::%3$I.%4$I <<@ ARRAY[%2$L]::%5$I.%6$I[]', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
+        format('SELECT %1$L::%3$I.%4$I = ANY(ARRAY[%2$L::%5$I.%6$I])', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
+        format('SELECT %1$L::%3$I.%4$I <<@ ARRAY[%2$L::%5$I.%6$I]', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
       )::sql_cmd_pairs,
       ROW(
-        format('SELECT %1$L::%5$I.%6$I = ANY(ARRAY[%2$L]::%3$I.%4$I[])', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
-        format('SELECT ARRAY[%2$L]::%3$I.%4$I[] @>> %1$L::%5$I.%6$I', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
+        format('SELECT %1$L::%5$I.%6$I = ANY(ARRAY[%2$L::%3$I.%4$I])', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
+        format('SELECT ARRAY[%2$L::%3$I.%4$I] @>> %1$L::%5$I.%6$I', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
       )::sql_cmd_pairs
     ] LOOP
       _bool1 := NULL;
