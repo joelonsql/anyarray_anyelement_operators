@@ -383,6 +383,13 @@ index f7012cc5d9..51e241153f 100644
 +       /*
 +        * Apply the comparison operator to each pair of array elements.
 +        */
+```
+
+🧐 This comment has been copy/pasted from array_contain_compare().
+Maybe the wording should clarify there is only one array in this function,
+the word "pair" seems to imply working with two arrays.
+
+```diff
 +       InitFunctionCallInfoData(*locfcinfo, &typentry->eq_opr_finfo, 2,
 +                                                        collation, NULL, NULL);
 +
@@ -393,6 +400,11 @@ index f7012cc5d9..51e241153f 100644
 +       for (i = 0; i < nelems; i++)
 +       {
 +               Datum elt1;
+```
+
+🧐 The name `elt1` originates from the 
+
+```diff
 +               bool isnull;
 +               bool oprresult;
 +
