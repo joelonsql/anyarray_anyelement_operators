@@ -1,0 +1,293 @@
+diff --git a/anyarray_anyelement_operators-v2.patch b/anyarray_anyelement_operators-v3.patch
+index 39c51d2..5ada06a 100644
+--- a/anyarray_anyelement_operators-v2.patch
++++ b/anyarray_anyelement_operators-v3.patch
+@@ -77,7 +77,7 @@ index 623962d1d8..6de6c33c75 100644
+  
+     (See <xref linkend="functions-array"/> for the meaning of
+ diff --git a/src/backend/access/gin/ginarrayproc.c b/src/backend/access/gin/ginarrayproc.c
+-index bf73e32932..1227dd4ba8 100644
++index bf73e32932..b10bd04ec8 100644
+ --- a/src/backend/access/gin/ginarrayproc.c
+ +++ b/src/backend/access/gin/ginarrayproc.c
+ @@ -24,6 +24,7 @@
+@@ -88,17 +88,23 @@ index bf73e32932..1227dd4ba8 100644
+  
+  
+  /*
+-@@ -78,8 +79,7 @@ ginarrayextract_2args(PG_FUNCTION_ARGS)
++@@ -78,8 +79,6 @@ ginarrayextract_2args(PG_FUNCTION_ARGS)
+  Datum
+  ginqueryarrayextract(PG_FUNCTION_ARGS)
+  {
+ -	/* Make copy of array input to ensure it doesn't disappear while in use */
+ -	ArrayType  *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+-+	ArrayType  *array;
+  	int32	   *nkeys = (int32 *) PG_GETARG_POINTER(1);
+  	StrategyNumber strategy = PG_GETARG_UINT16(2);
+  
+-@@ -94,14 +94,32 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
++@@ -87,21 +86,33 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
++ 	/* Pointer	   *extra_data = (Pointer *) PG_GETARG_POINTER(4); */
++ 	bool	  **nullFlags = (bool **) PG_GETARG_POINTER(5);
++ 	int32	   *searchMode = (int32 *) PG_GETARG_POINTER(6);
++-	int16		elmlen;
++-	bool		elmbyval;
++-	char		elmalign;
++ 	Datum	   *elems;
+  	bool	   *nulls;
+  	int			nelems;
+  
+@@ -106,26 +112,23 @@ index bf73e32932..1227dd4ba8 100644
+ -						 &elmlen, &elmbyval, &elmalign);
+ +	if (strategy == GinContainsElemStrategy)
+ +	{
+-+		/*
+-+		* since this function returns a pointer to a
+-+		* deconstructed array, there is nothing to do if
+-+		* operand is a single element except to return it
+-+		* as is and configure the searchmode
+-+		*/
+- 
+--	deconstruct_array(array,
+--					  ARR_ELEMTYPE(array),
+--					  elmlen, elmbyval, elmalign,
+--					  &elems, &nulls, &nelems);
+-+		nelems = 1;
+++		/* single element is passed, set elems to its pointer */
+ +		elems = &PG_GETARG_DATUM(0);
+ +		nulls = &PG_ARGISNULL(0);
+++		nelems = 1;
+ +	}
+ +	else
+ +	{
+ +		/* Make copy of array input to ensure it doesn't disappear while in use */
+-+		array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+-+
+++		ArrayType  *array = PG_GETARG_ARRAYTYPE_P_COPY(0);
+++		int16		elmlen;
+++		bool		elmbyval;
+++		char		elmalign;
++ 
++-	deconstruct_array(array,
++-					  ARR_ELEMTYPE(array),
++-					  elmlen, elmbyval, elmalign,
++-					  &elems, &nulls, &nelems);
+ +		get_typlenbyvalalign(ARR_ELEMTYPE(array),
+ +							 &elmlen, &elmbyval, &elmalign);
+  
+@@ -137,7 +140,7 @@ index bf73e32932..1227dd4ba8 100644
+  	*nkeys = nelems;
+  	*nullFlags = nulls;
+  
+-@@ -126,6 +144,14 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
++@@ -126,6 +137,14 @@ ginqueryarrayextract(PG_FUNCTION_ARGS)
+  			else
+  				*searchMode = GIN_SEARCH_MODE_INCLUDE_EMPTY;
+  			break;
+@@ -152,7 +155,7 @@ index bf73e32932..1227dd4ba8 100644
+  		default:
+  			elog(ERROR, "ginqueryarrayextract: unknown strategy number: %d",
+  				 strategy);
+-@@ -185,6 +211,7 @@ ginarrayconsistent(PG_FUNCTION_ARGS)
++@@ -185,6 +204,7 @@ ginarrayconsistent(PG_FUNCTION_ARGS)
+  				}
+  			}
+  			break;
+@@ -160,7 +163,7 @@ index bf73e32932..1227dd4ba8 100644
+  		case GinContainedStrategy:
+  			/* we will need recheck */
+  			*recheck = true;
+-@@ -274,6 +301,7 @@ ginarraytriconsistent(PG_FUNCTION_ARGS)
++@@ -274,6 +294,7 @@ ginarraytriconsistent(PG_FUNCTION_ARGS)
+  				}
+  			}
+  			break;
+@@ -169,7 +172,7 @@ index bf73e32932..1227dd4ba8 100644
+  			/* can't do anything else useful here */
+  			res = GIN_MAYBE;
+ diff --git a/src/backend/utils/adt/arrayfuncs.c b/src/backend/utils/adt/arrayfuncs.c
+-index f7012cc5d9..9bd1a7e7cd 100644
++index f7012cc5d9..8650c62201 100644
+ --- a/src/backend/utils/adt/arrayfuncs.c
+ +++ b/src/backend/utils/adt/arrayfuncs.c
+ @@ -4328,6 +4328,143 @@ arraycontained(PG_FUNCTION_ARGS)
+@@ -197,7 +200,7 @@ index f7012cc5d9..9bd1a7e7cd 100644
+ +	if (arrtype != elemtype)
+ +		ereport(ERROR,
+ +				(errcode(ERRCODE_DATATYPE_MISMATCH),
+-+				 errmsg("cannot compare arrays of different element types")));
+++				 errmsg("cannot compare arrays elements with element of different type")));
+ +
+ +	/*
+ +	 * We arrange to look up the equality function only once per series of
+@@ -317,21 +320,21 @@ index f7012cc5d9..9bd1a7e7cd 100644
+   * Array iteration functions
+   *		These functions are used to iterate efficiently through arrays
+ diff --git a/src/include/catalog/pg_amop.dat b/src/include/catalog/pg_amop.dat
+-index 0f7ff63669..00e265067f 100644
++index 0f7ff63669..8a14fc7140 100644
+ --- a/src/include/catalog/pg_amop.dat
+ +++ b/src/include/catalog/pg_amop.dat
+ @@ -1242,6 +1242,9 @@
+  { amopfamily => 'gin/array_ops', amoplefttype => 'anyarray',
+    amoprighttype => 'anyarray', amopstrategy => '4',
+    amopopr => '=(anyarray,anyarray)', amopmethod => 'gin' },
+-+{ amopfamily => 'gin/array_ops', amoplefttype => 'anycompatiblearray',
+-+  amoprighttype => 'anycompatiblenonarray', amopstrategy => '5',
+-+  amopopr => '@>>(anycompatiblearray,anycompatiblenonarray)', amopmethod => 'gin' },
+++{ amopfamily => 'gin/array_ops', amoplefttype => 'anyarray',
+++  amoprighttype => 'anyelement', amopstrategy => '5',
+++  amopopr => '@>>(anyarray,anyelement)', amopmethod => 'gin' },
+  
+  # btree enum_ops
+  { amopfamily => 'btree/enum_ops', amoplefttype => 'anyenum',
+ diff --git a/src/include/catalog/pg_operator.dat b/src/include/catalog/pg_operator.dat
+-index 0d4eac8f96..ac566bb6b0 100644
++index 0d4eac8f96..7ef071135c 100644
+ --- a/src/include/catalog/pg_operator.dat
+ +++ b/src/include/catalog/pg_operator.dat
+ @@ -2761,7 +2761,7 @@
+@@ -349,21 +352,21 @@ index 0d4eac8f96..ac566bb6b0 100644
+    oprjoin => 'arraycontjoinsel' },
+ +{ oid => '6108', oid_symbol => 'OID_ARRAY_ELEMCONTAINED_OP',
+ +  descr => 'elem is contained by',
+-+  oprname => '<<@', oprleft => 'anycompatiblenonarray', oprright => 'anycompatiblearray',
+-+  oprresult => 'bool', oprcom => '@>>(anycompatiblearray,anycompatiblenonarray)',
+++  oprname => '<<@', oprleft => 'anyelement', oprright => 'anyarray',
+++  oprresult => 'bool', oprcom => '@>>(anyarray,anyelement)',
+ +  oprcode => 'arrayelemcontained', oprrest => 'arraycontsel',
+ +  oprjoin => 'arraycontjoinsel' },
+ +{ oid => '6105', oid_symbol => 'OID_ARRAY_CONTAINSELEM_OP',
+ +  descr => 'contains elem',
+-+  oprname => '@>>', oprleft => 'anycompatiblearray', oprright => 'anycompatiblenonarray',
+-+  oprresult => 'bool', oprcom => '<<@(anycompatiblenonarray,anycompatiblearray)',
+++  oprname => '@>>', oprleft => 'anyarray', oprright => 'anyelement',
+++  oprresult => 'bool', oprcom => '<<@(anyelement,anyarray)',
+ +  oprcode => 'arraycontainselem', oprrest => 'arraycontsel',
+ +  oprjoin => 'arraycontjoinsel' },
+  
+  # capturing operators to preserve pre-8.3 behavior of text concatenation
+  { oid => '2779', descr => 'concatenate',
+ diff --git a/src/include/catalog/pg_proc.dat b/src/include/catalog/pg_proc.dat
+-index 4e0c9be58c..efce9f8a63 100644
++index 1487710d59..aa9d9f7291 100644
+ --- a/src/include/catalog/pg_proc.dat
+ +++ b/src/include/catalog/pg_proc.dat
+ @@ -8180,6 +8180,12 @@
+@@ -372,18 +375,18 @@ index 4e0c9be58c..efce9f8a63 100644
+    proargtypes => 'anyarray anyarray', prosrc => 'arraycontained' },
+ +{ oid => '6109',
+ +  proname => 'arrayelemcontained', prorettype => 'bool',
+-+  proargtypes => 'anycompatiblenonarray anycompatiblearray', prosrc => 'arrayelemcontained' },
+++  proargtypes => 'anyelement anyarray', prosrc => 'arrayelemcontained' },
+ +{ oid => '6107',
+ +  proname => 'arraycontainselem', prorettype => 'bool',
+-+  proargtypes => 'anycompatiblearray anycompatiblenonarray', prosrc => 'arraycontainselem' },
+++  proargtypes => 'anyarray anyelement', prosrc => 'arraycontainselem' },
+  
+  # BRIN minmax
+  { oid => '3383', descr => 'BRIN minmax support',
+ diff --git a/src/test/regress/expected/arrays.out b/src/test/regress/expected/arrays.out
+-index 8bc7721e7d..029cfaccd0 100644
++index 8bc7721e7d..95c9ae5443 100644
+ --- a/src/test/regress/expected/arrays.out
+ +++ b/src/test/regress/expected/arrays.out
+-@@ -758,6 +758,50 @@ SELECT * FROM array_op_test WHERE i @> '{32}' ORDER BY seqno;
++@@ -758,6 +758,28 @@ SELECT * FROM array_op_test WHERE i @> '{32}' ORDER BY seqno;
+     100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
+  (6 rows)
+  
+@@ -398,28 +401,6 @@ index 8bc7721e7d..029cfaccd0 100644
+ +   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
+ +(6 rows)
+ +
+-+SELECT * FROM array_op_test WHERE i @>> 32::smallint ORDER BY seqno;
+-+ seqno |                i                |                                                                 t                                                                  
+-+-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+-+     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
+-+    74 | {32}                            | {AAAAAAAAAAAAAAAA1729,AAAAAAAAAAAAA22860,AAAAAA99807,AAAAA17383,AAAAAAAAAAAAAAA67062,AAAAAAAAAAA15165,AAAAAAAAAAA50956}
+-+    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
+-+    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
+-+    98 | {38,34,32,89}                   | {AAAAAAAAAAAAAAAAAA71621,AAAA8857,AAAAAAAAAAAAAAAAAAA65037,AAAAAAAAAAAAAAAA31334,AAAAAAAAAA48845}
+-+   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
+-+(6 rows)
+-+
+-+SELECT * FROM array_op_test WHERE i @>> 32::bigint ORDER BY seqno;
+-+ seqno |                i                |                                                                 t                                                                  
+-+-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+-+     6 | {39,35,5,94,17,92,60,32}        | {AAAAAAAAAAAAAAA35875,AAAAAAAAAAAAAAAA23657}
+-+    74 | {32}                            | {AAAAAAAAAAAAAAAA1729,AAAAAAAAAAAAA22860,AAAAAA99807,AAAAA17383,AAAAAAAAAAAAAAA67062,AAAAAAAAAAA15165,AAAAAAAAAAA50956}
+-+    77 | {97,15,32,17,55,59,18,37,50,39} | {AAAAAAAAAAAA67946,AAAAAA54032,AAAAAAAA81587,55847,AAAAAAAAAAAAAA28620,AAAAAAAAAAAAAAAAA43052,AAAAAA75463,AAAA49534,AAAAAAAA44066}
+-+    89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
+-+    98 | {38,34,32,89}                   | {AAAAAAAAAAAAAAAAAA71621,AAAA8857,AAAAAAAAAAAAAAAAAAA65037,AAAAAAAAAAAAAAAA31334,AAAAAAAAAA48845}
+-+   100 | {85,32,57,39,49,84,32,3,30}     | {AAAAAAA80240,AAAAAAAAAAAAAAAA1729,AAAAA60038,AAAAAAAAAAA92631,AAAAAAAA9523}
+-+(6 rows)
+-+
+ +SELECT * FROM array_op_test WHERE 32 <<@ i ORDER BY seqno;
+ + seqno |                i                |                                                                 t                                                                  
+ +-------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+@@ -434,7 +415,7 @@ index 8bc7721e7d..029cfaccd0 100644
+  SELECT * FROM array_op_test WHERE i && '{32}' ORDER BY seqno;
+   seqno |                i                |                                                                 t                                                                  
+  -------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+-@@ -782,6 +826,32 @@ SELECT * FROM array_op_test WHERE i @> '{17}' ORDER BY seqno;
++@@ -782,6 +804,32 @@ SELECT * FROM array_op_test WHERE i @> '{17}' ORDER BY seqno;
+      89 | {40,32,17,6,30,88}              | {AA44673,AAAAAAAAAAA6119,AAAAAAAAAAAAAAAA23657,AAAAAAAAAAAAAAAAAA47955,AAAAAAAAAAAAAAAA33598,AAAAAAAAAAA33576,AA44673}
+  (8 rows)
+  
+@@ -467,7 +448,7 @@ index 8bc7721e7d..029cfaccd0 100644
+  SELECT * FROM array_op_test WHERE i && '{17}' ORDER BY seqno;
+   seqno |                i                |                                                                 t                                                                  
+  -------+---------------------------------+------------------------------------------------------------------------------------------------------------------------------------
+-@@ -963,6 +1033,16 @@ SELECT * FROM array_op_test WHERE i @> '{NULL}' ORDER BY seqno;
++@@ -963,6 +1011,16 @@ SELECT * FROM array_op_test WHERE i @> '{NULL}' ORDER BY seqno;
+  -------+---+---
+  (0 rows)
+  
+@@ -484,7 +465,7 @@ index 8bc7721e7d..029cfaccd0 100644
+  SELECT * FROM array_op_test WHERE i && '{NULL}' ORDER BY seqno;
+   seqno | i | t 
+  -------+---+---
+-@@ -983,6 +1063,24 @@ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAA72908}' ORDER BY seqno;
++@@ -983,6 +1041,24 @@ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAA72908}' ORDER BY seqno;
+      79 | {45}                  | {AAAAAAAAAA646,AAAAAAAAAAAAAAAAAAA70415,AAAAAA43678,AAAAAAAA72908}
+  (4 rows)
+  
+@@ -509,7 +490,7 @@ index 8bc7721e7d..029cfaccd0 100644
+  SELECT * FROM array_op_test WHERE t && '{AAAAAAAA72908}' ORDER BY seqno;
+   seqno |           i           |                                                                     t                                                                      
+  -------+-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------
+-@@ -1000,6 +1098,22 @@ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAAAA646}' ORDER BY seqno;
++@@ -1000,6 +1076,22 @@ SELECT * FROM array_op_test WHERE t @> '{AAAAAAAAAA646}' ORDER BY seqno;
+      96 | {23,97,43}       | {AAAAAAAAAA646,A87088}
+  (3 rows)
+  
+@@ -571,16 +552,14 @@ index 254ca06d3d..5de5ab6d13 100644
+  -- Check that all opclass search operators have selectivity estimators.
+  -- This is not absolutely required, but it seems a reasonable thing
+ diff --git a/src/test/regress/sql/arrays.sql b/src/test/regress/sql/arrays.sql
+-index c40619a8d5..50a24c9684 100644
++index c40619a8d5..b5eec945f7 100644
+ --- a/src/test/regress/sql/arrays.sql
+ +++ b/src/test/regress/sql/arrays.sql
+-@@ -319,8 +319,14 @@ SELECT 0 || ARRAY[1,2] || 3 AS "{0,1,2,3}";
++@@ -319,8 +319,12 @@ SELECT 0 || ARRAY[1,2] || 3 AS "{0,1,2,3}";
+  SELECT ARRAY[1.1] || ARRAY[2,3,4];
+  
+  SELECT * FROM array_op_test WHERE i @> '{32}' ORDER BY seqno;
+ +SELECT * FROM array_op_test WHERE i @>> 32 ORDER BY seqno;
+-+SELECT * FROM array_op_test WHERE i @>> 32::smallint ORDER BY seqno;
+-+SELECT * FROM array_op_test WHERE i @>> 32::bigint ORDER BY seqno;
+ +SELECT * FROM array_op_test WHERE 32 <<@ i ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i && '{32}' ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i @> '{17}' ORDER BY seqno;
+@@ -589,7 +568,7 @@ index c40619a8d5..50a24c9684 100644
+  SELECT * FROM array_op_test WHERE i && '{17}' ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i @> '{32,17}' ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i && '{32,17}' ORDER BY seqno;
+-@@ -331,12 +337,18 @@ SELECT * FROM array_op_test WHERE i && '{}' ORDER BY seqno;
++@@ -331,12 +335,18 @@ SELECT * FROM array_op_test WHERE i && '{}' ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i <@ '{}' ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i = '{NULL}' ORDER BY seqno;
+  SELECT * FROM array_op_test WHERE i @> '{NULL}' ORDER BY seqno;

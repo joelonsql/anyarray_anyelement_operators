@@ -1,1013 +1,1235 @@
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
-true
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[]
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
-true
-SELECT ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
-true
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[]
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
-true
-SELECT ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
-true
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[]
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[])
-true
-SELECT ARRAY['(-2,2),(-8,-10)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(2,2),(0,0)']::pg_catalog.box[])
-false
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box <<@ ARRAY['(2,2),(0,0)']::pg_catalog.box[]
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '(-2,2),(-8,-10)'::pg_catalog.box = ANY(ARRAY['(2,2),(0,0)']::pg_catalog.box[])
-false
-SELECT ARRAY['(2,2),(0,0)']::pg_catalog.box[] @>> '(-2,2),(-8,-10)'::pg_catalog.box
-could not identify an equality operator for type box
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['a']::pg_catalog."char"[])
-true
-SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['a']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog."char" = ANY(ARRAY['a']::pg_catalog.bpchar[])
-true
-SELECT ARRAY['a']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
-failed to find conversion function from "char" to character
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['r']::pg_catalog."char"[])
-false
-SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['r']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.bpchar[])
-false
-SELECT ARRAY['r']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
-failed to find conversion function from "char" to character
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['a']::pg_catalog."char"[])
-true
-SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['a']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog."char" = ANY(ARRAY['a']::pg_catalog.bpchar[])
-true
-SELECT ARRAY['a']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
-failed to find conversion function from "char" to character
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['s']::pg_catalog."char"[])
-false
-SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['s']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'a'::pg_catalog."char" = ANY(ARRAY['s']::pg_catalog.bpchar[])
-false
-SELECT ARRAY['s']::pg_catalog.bpchar[] @>> 'a'::pg_catalog."char"
-failed to find conversion function from "char" to character
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.bpchar[])
-true
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.bpchar[]
-failed to find conversion function from character[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['r']::pg_catalog."char"[])
-true
-SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
-failed to find conversion function from character to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['a']::pg_catalog.bpchar[])
-false
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['a']::pg_catalog.bpchar[]
-failed to find conversion function from character[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['a']::pg_catalog."char"[])
-false
-SELECT ARRAY['a']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
-failed to find conversion function from character to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.bpchar[])
-true
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.bpchar[]
-failed to find conversion function from character[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['r']::pg_catalog."char"[])
-true
-SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
-failed to find conversion function from character to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['b']::pg_catalog.bpchar[])
-false
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['b']::pg_catalog.bpchar[]
-failed to find conversion function from character[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.bpchar = ANY(ARRAY['b']::pg_catalog."char"[])
-false
-SELECT ARRAY['b']::pg_catalog."char"[] @>> 'r'::pg_catalog.bpchar
-failed to find conversion function from character to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.name[])
-true
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.name[]
-failed to find conversion function from name[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.name = ANY(ARRAY['r']::pg_catalog."char"[])
-true
-SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
-failed to find conversion function from name to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['joel']::pg_catalog.name[])
-false
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['joel']::pg_catalog.name[]
-failed to find conversion function from name[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.name = ANY(ARRAY['joel']::pg_catalog."char"[])
-false
-SELECT ARRAY['joel']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
-failed to find conversion function from name to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.name[])
-true
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog.name[]
-failed to find conversion function from name[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.name = ANY(ARRAY['r']::pg_catalog."char"[])
-true
-SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
-failed to find conversion function from name to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['regression']::pg_catalog.name[])
-false
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['regression']::pg_catalog.name[]
-failed to find conversion function from name[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog.name = ANY(ARRAY['regression']::pg_catalog."char"[])
-true
-SELECT ARRAY['regression']::pg_catalog."char"[] @>> 'r'::pg_catalog.name
-failed to find conversion function from name to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog."varchar"[])
-true
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog."varchar"[]
-failed to find conversion function from character varying[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['r']::pg_catalog."char"[])
-true
-SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
-failed to find conversion function from character varying to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['NO']::pg_catalog."varchar"[])
-false
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['NO']::pg_catalog."varchar"[]
-failed to find conversion function from character varying[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['NO']::pg_catalog."char"[])
-false
-SELECT ARRAY['NO']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
-failed to find conversion function from character varying to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog."varchar"[])
-true
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['r']::pg_catalog."varchar"[]
-failed to find conversion function from character varying[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['r']::pg_catalog."char"[])
-true
-SELECT ARRAY['r']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
-failed to find conversion function from character varying to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."char" = ANY(ARRAY['c']::pg_catalog."varchar"[])
-false
-SELECT 'r'::pg_catalog."char" <<@ ARRAY['c']::pg_catalog."varchar"[]
-failed to find conversion function from character varying[] to "char"[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'r'::pg_catalog."varchar" = ANY(ARRAY['c']::pg_catalog."char"[])
-false
-SELECT ARRAY['c']::pg_catalog."char"[] @>> 'r'::pg_catalog."varchar"
-failed to find conversion function from character varying to "char"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
-true
-SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),100>']::pg_catalog.circle[]
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
-true
-SELECT ARRAY['<(1,2),100>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
-true
-SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),100>']::pg_catalog.circle[]
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
-true
-SELECT ARRAY['<(1,2),100>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
-true
-SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),100>']::pg_catalog.circle[]
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),100>']::pg_catalog.circle[])
-true
-SELECT ARRAY['<(1,2),100>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),3>']::pg_catalog.circle[])
-false
-SELECT '<(1,2),100>'::pg_catalog.circle <<@ ARRAY['<(1,2),3>']::pg_catalog.circle[]
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '<(1,2),100>'::pg_catalog.circle = ANY(ARRAY['<(1,2),3>']::pg_catalog.circle[])
-false
-SELECT ARRAY['<(1,2),3>']::pg_catalog.circle[] @>> '<(1,2),100>'::pg_catalog.circle
-could not identify an equality operator for type circle
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
-true
-SELECT ARRAY['0']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
-operator does not exist: smallint[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT '0'::pg_catalog.int2 <<@ ARRAY['0']::pg_catalog.xid[]
-operator does not exist: smallint <<@ xid[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
-true
-SELECT ARRAY['0']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
-operator does not exist: smallint[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
-true
-SELECT ARRAY['0']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
-operator does not exist: smallint[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int2 = ANY(ARRAY['10004']::pg_catalog.xid[])
-true
-SELECT '0'::pg_catalog.int2 <<@ ARRAY['10004']::pg_catalog.xid[]
-operator does not exist: smallint <<@ xid[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['10004']::pg_catalog.int2[])
-false
-SELECT ARRAY['10004']::pg_catalog.int2[] @>> '0'::pg_catalog.xid
-operator does not exist: smallint[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '1'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int4[])
-true
-SELECT ARRAY['1']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
-operator does not exist: integer[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '1'::pg_catalog.int4 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT '1'::pg_catalog.int4 <<@ ARRAY['0']::pg_catalog.xid[]
-operator does not exist: integer <<@ xid[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '1'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int4[])
-false
-SELECT ARRAY['0']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
-operator does not exist: integer[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '1'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int4[])
-true
-SELECT ARRAY['1']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
-operator does not exist: integer[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '1'::pg_catalog.int4 = ANY(ARRAY['10004']::pg_catalog.xid[])
-true
-SELECT '1'::pg_catalog.int4 <<@ ARRAY['10004']::pg_catalog.xid[]
-operator does not exist: integer <<@ xid[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '1'::pg_catalog.xid = ANY(ARRAY['10004']::pg_catalog.int4[])
-false
-SELECT ARRAY['10004']::pg_catalog.int4[] @>> '1'::pg_catalog.xid
-operator does not exist: integer[] @>> xid
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['01:22:21']::pg_catalog."time"[])
-false
-SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['01:22:21']::pg_catalog."time"[]
-operator does not exist: interval <<@ time without time zone[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-01:00:00'::pg_catalog."time" = ANY(ARRAY['01:22:21']::pg_catalog."interval"[])
-false
-SELECT ARRAY['01:22:21']::pg_catalog."interval"[] @>> '-01:00:00'::pg_catalog."time"
-invalid input syntax for type time: "-01:00:00"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['01:23:16.5']::pg_catalog."time"[])
-false
-SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['01:23:16.5']::pg_catalog."time"[]
-operator does not exist: interval <<@ time without time zone[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-01:00:00'::pg_catalog."time" = ANY(ARRAY['01:23:16.5']::pg_catalog."interval"[])
-false
-SELECT ARRAY['01:23:16.5']::pg_catalog."interval"[] @>> '-01:00:00'::pg_catalog."time"
-invalid input syntax for type time: "-01:00:00"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
-true
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[]
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
-true
-SELECT ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
-true
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[]
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
-true
-SELECT ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
-true
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[]
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[])
-true
-SELECT ARRAY['{-0.0001846153846153846,-1,15.384615384615387}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.4,-1,-6}']::pg_catalog.line[])
-false
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line <<@ ARRAY['{-0.4,-1,-6}']::pg_catalog.line[]
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line = ANY(ARRAY['{-0.4,-1,-6}']::pg_catalog.line[])
-false
-SELECT ARRAY['{-0.4,-1,-6}']::pg_catalog.line[] @>> '{-0.0001846153846153846,-1,15.384615384615387}'::pg_catalog.line
-could not identify an equality operator for type line
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
-true
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[]
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
-true
-SELECT ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
-true
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[]
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
-true
-SELECT ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
-true
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[]
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[])
-true
-SELECT ARRAY['[(-10,2),(-10,3)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[])
-false
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg <<@ ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[]
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '[(-10,2),(-10,3)]'::pg_catalog.lseg = ANY(ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[])
-false
-SELECT ARRAY['[(-1000000,200),(300000,-40)]']::pg_catalog.lseg[] @>> '[(-10,2),(-10,3)]'::pg_catalog.lseg
-could not identify an equality operator for type lseg
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog.name = ANY(ARRAY['joel']::pg_catalog."char"[])
-false
-SELECT 'joel'::pg_catalog.name <<@ ARRAY['joel']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to name[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['joel']::pg_catalog.name[])
-false
-SELECT ARRAY['joel']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
-failed to find conversion function from "char" to name
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog.name = ANY(ARRAY['r']::pg_catalog."char"[])
-false
-SELECT 'joel'::pg_catalog.name <<@ ARRAY['r']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to name[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog.name[])
-false
-SELECT ARRAY['r']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
-failed to find conversion function from "char" to name
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog.name = ANY(ARRAY['joel']::pg_catalog."char"[])
-false
-SELECT 'joel'::pg_catalog.name <<@ ARRAY['joel']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to name[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['joel']::pg_catalog.name[])
-false
-SELECT ARRAY['joel']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
-failed to find conversion function from "char" to name
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog.name = ANY(ARRAY['s']::pg_catalog."char"[])
-false
-SELECT 'joel'::pg_catalog.name <<@ ARRAY['s']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to name[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'joel'::pg_catalog."char" = ANY(ARRAY['s']::pg_catalog.name[])
-false
-SELECT ARRAY['s']::pg_catalog.name[] @>> 'joel'::pg_catalog."char"
-failed to find conversion function from "char" to name
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '285471022'::pg_catalog."numeric" = ANY(ARRAY['285471022']::pg_catalog.float4[])
-false
-SELECT '285471022'::pg_catalog."numeric" <<@ ARRAY['285471022']::pg_catalog.float4[]
-true
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '285471022'::pg_catalog.float4 = ANY(ARRAY['285471022']::pg_catalog."numeric"[])
-false
-SELECT ARRAY['285471022']::pg_catalog."numeric"[] @>> '285471022'::pg_catalog.float4
-true
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '285471022'::pg_catalog."numeric" = ANY(ARRAY['285471022']::pg_catalog.float4[])
-false
-SELECT '285471022'::pg_catalog."numeric" <<@ ARRAY['285471022']::pg_catalog.float4[]
-true
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '285471022'::pg_catalog.float4 = ANY(ARRAY['285471022']::pg_catalog."numeric"[])
-false
-SELECT ARRAY['285471022']::pg_catalog."numeric"[] @>> '285471022'::pg_catalog.float4
-true
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
-true
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[]
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
-true
-SELECT ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
-true
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[]
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
-true
-SELECT ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
-true
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[]
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[])
-true
-SELECT ARRAY['((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[])
-false
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path <<@ ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[]
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path = ANY(ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[])
-false
-SELECT ARRAY['((-121.727,37.074),(-121.7255,37.083),(-121.7234,37.092),(-121.723,37.095),(-121.721995,37.09859),(-121.7216,37.1),(-121.7211,37.102),(-121.7188,37.109))']::pg_catalog.path[] @>> '((-121.628147,37.33089),(-121.629246,37.32464),(-121.644337,37.2411),(-121.654377,37.20798),(-121.654356,37.20723),(-121.654926,37.20531),(-121.658827,37.19552))'::pg_catalog.path
-could not identify an equality operator for type path
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regproc = ANY(ARRAY['-']::pg_catalog.regtype[])
-true
-SELECT '-'::pg_catalog.regproc <<@ ARRAY['-']::pg_catalog.regtype[]
-failed to find conversion function from regtype[] to regproc[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regtype = ANY(ARRAY['-']::pg_catalog.regproc[])
-true
-SELECT ARRAY['-']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
-failed to find conversion function from regtype to regproc
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regproc = ANY(ARRAY['bigint']::pg_catalog.regtype[])
-false
-SELECT '-'::pg_catalog.regproc <<@ ARRAY['bigint']::pg_catalog.regtype[]
-failed to find conversion function from regtype[] to regproc[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regtype = ANY(ARRAY['bigint']::pg_catalog.regproc[])
-false
-SELECT ARRAY['bigint']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
-function "bigint" does not exist
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regproc = ANY(ARRAY['-']::pg_catalog.regtype[])
-true
-SELECT '-'::pg_catalog.regproc <<@ ARRAY['-']::pg_catalog.regtype[]
-failed to find conversion function from regtype[] to regproc[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regtype = ANY(ARRAY['-']::pg_catalog.regproc[])
-true
-SELECT ARRAY['-']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
-failed to find conversion function from regtype to regproc
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regproc = ANY(ARRAY['integer']::pg_catalog.regtype[])
-false
-SELECT '-'::pg_catalog.regproc <<@ ARRAY['integer']::pg_catalog.regtype[]
-failed to find conversion function from regtype[] to regproc[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '-'::pg_catalog.regtype = ANY(ARRAY['integer']::pg_catalog.regproc[])
-false
-SELECT ARRAY['integer']::pg_catalog.regproc[] @>> '-'::pg_catalog.regtype
-function "integer" does not exist
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['-']::pg_catalog.regproc[])
-false
-SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['-']::pg_catalog.regproc[]
-failed to find conversion function from regproc[] to regtype[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'bigint'::pg_catalog.regproc = ANY(ARRAY['-']::pg_catalog.regtype[])
-false
-SELECT ARRAY['-']::pg_catalog.regtype[] @>> 'bigint'::pg_catalog.regproc
-function "bigint" does not exist
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['array_larger']::pg_catalog.regproc[])
-false
-SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['array_larger']::pg_catalog.regproc[]
-failed to find conversion function from regproc[] to regtype[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'bigint'::pg_catalog.regproc = ANY(ARRAY['array_larger']::pg_catalog.regtype[])
-false
-SELECT ARRAY['array_larger']::pg_catalog.regtype[] @>> 'bigint'::pg_catalog.regproc
-type "array_larger" does not exist
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:22:21']::pg_catalog."interval"[])
-true
-SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:22:21']::pg_catalog."interval"[]
-operator does not exist: time without time zone <<@ interval[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['01:22:21']::pg_catalog."time"[])
-true
-SELECT ARRAY['01:22:21']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
-operator does not exist: time without time zone[] @>> interval
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['-01:00:00']::pg_catalog."interval"[])
-false
-SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['-01:00:00']::pg_catalog."interval"[]
-operator does not exist: time without time zone <<@ interval[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['-01:00:00']::pg_catalog."time"[])
-false
-SELECT ARRAY['-01:00:00']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
-invalid input syntax for type time: "-01:00:00"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:22:21']::pg_catalog."interval"[])
-true
-SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:22:21']::pg_catalog."interval"[]
-operator does not exist: time without time zone <<@ interval[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['01:22:21']::pg_catalog."time"[])
-true
-SELECT ARRAY['01:22:21']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
-operator does not exist: time without time zone[] @>> interval
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['-02:00:00']::pg_catalog."interval"[])
-false
-SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['-02:00:00']::pg_catalog."interval"[]
-operator does not exist: time without time zone <<@ interval[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '01:22:21'::pg_catalog."interval" = ANY(ARRAY['-02:00:00']::pg_catalog."time"[])
-false
-SELECT ARRAY['-02:00:00']::pg_catalog."time"[] @>> '01:22:21'::pg_catalog."interval"
-invalid input syntax for type time: "-02:00:00"
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['c']::pg_catalog."char"[])
-true
-SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['c']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character varying[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."char" = ANY(ARRAY['c']::pg_catalog."varchar"[])
-true
-SELECT ARRAY['c']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
-failed to find conversion function from "char" to character varying
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['r']::pg_catalog."char"[])
-false
-SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['r']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character varying[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."char" = ANY(ARRAY['r']::pg_catalog."varchar"[])
-false
-SELECT ARRAY['r']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
-failed to find conversion function from "char" to character varying
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['c']::pg_catalog."char"[])
-true
-SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['c']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character varying[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."char" = ANY(ARRAY['c']::pg_catalog."varchar"[])
-true
-SELECT ARRAY['c']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
-failed to find conversion function from "char" to character varying
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['s']::pg_catalog."char"[])
-false
-SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['s']::pg_catalog."char"[]
-failed to find conversion function from "char"[] to character varying[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT 'c'::pg_catalog."char" = ANY(ARRAY['s']::pg_catalog."varchar"[])
-false
-SELECT ARRAY['s']::pg_catalog."varchar"[] @>> 'c'::pg_catalog."char"
-failed to find conversion function from "char" to character varying
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
-true
-SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int2[]
-operator does not exist: xid <<@ smallint[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
-operator does not exist: xid[] @>> smallint
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
-true
-SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int2[]
-operator does not exist: xid <<@ smallint[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
-operator does not exist: xid[] @>> smallint
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int2[])
-true
-SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int2[]
-operator does not exist: xid <<@ smallint[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
-operator does not exist: xid[] @>> smallint
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int2[])
-false
-SELECT '0'::pg_catalog.xid <<@ ARRAY['1']::pg_catalog.int2[]
-operator does not exist: xid <<@ smallint[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int2 = ANY(ARRAY['1']::pg_catalog.xid[])
-false
-SELECT ARRAY['1']::pg_catalog.xid[] @>> '0'::pg_catalog.int2
-operator does not exist: xid[] @>> smallint
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int4[])
-true
-SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int4[]
-operator does not exist: xid <<@ integer[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int4 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
-operator does not exist: xid[] @>> integer
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['1']::pg_catalog.int4[])
-false
-SELECT '0'::pg_catalog.xid <<@ ARRAY['1']::pg_catalog.int4[]
-operator does not exist: xid <<@ integer[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int4 = ANY(ARRAY['1']::pg_catalog.xid[])
-false
-SELECT ARRAY['1']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
-operator does not exist: xid[] @>> integer
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['0']::pg_catalog.int4[])
-true
-SELECT '0'::pg_catalog.xid <<@ ARRAY['0']::pg_catalog.int4[]
-operator does not exist: xid <<@ integer[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int4 = ANY(ARRAY['0']::pg_catalog.xid[])
-true
-SELECT ARRAY['0']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
-operator does not exist: xid[] @>> integer
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.xid = ANY(ARRAY['1500']::pg_catalog.int4[])
-false
-SELECT '0'::pg_catalog.xid <<@ ARRAY['1500']::pg_catalog.int4[]
-operator does not exist: xid <<@ integer[]
-
-psql:type-test.sql:165: WARNING:  
-SQL queries produced different results:
-SELECT '0'::pg_catalog.int4 = ANY(ARRAY['1500']::pg_catalog.xid[])
-false
-SELECT ARRAY['1500']::pg_catalog.xid[] @>> '0'::pg_catalog.int4
-operator does not exist: xid[] @>> integer
-
-psql:type-test.sql:165: NOTICE:  
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1001'::pg_catalog."bit" = ANY(ARRAY['0101'::pg_catalog."bit"]);
+SELECT '1001'::pg_catalog."bit" <<@ ARRAY['0101'::pg_catalog."bit"];
+SELECT ARRAY['0101'::pg_catalog."bit"] @>> '1001'::pg_catalog."bit";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1001'::pg_catalog."bit" = ANY(ARRAY['0101'::pg_catalog."bit"]);
+f
+SELECT '1001'::pg_catalog."bit" <<@ ARRAY['0101'::pg_catalog."bit"];
+f
+SELECT ARRAY['0101'::pg_catalog."bit"] @>> '1001'::pg_catalog."bit";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1001'::pg_catalog."bit" = ANY(ARRAY['1001'::pg_catalog."bit"]);
+SELECT '1001'::pg_catalog."bit" <<@ ARRAY['1001'::pg_catalog."bit"];
+SELECT ARRAY['1001'::pg_catalog."bit"] @>> '1001'::pg_catalog."bit";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1001'::pg_catalog."bit" = ANY(ARRAY['1001'::pg_catalog."bit"]);
+t
+SELECT '1001'::pg_catalog."bit" <<@ ARRAY['1001'::pg_catalog."bit"];
+t
+SELECT ARRAY['1001'::pg_catalog."bit"] @>> '1001'::pg_catalog."bit";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'false'::pg_catalog.bool = ANY(ARRAY['false'::pg_catalog.bool]);
+SELECT 'false'::pg_catalog.bool <<@ ARRAY['false'::pg_catalog.bool];
+SELECT ARRAY['false'::pg_catalog.bool] @>> 'false'::pg_catalog.bool;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'false'::pg_catalog.bool = ANY(ARRAY['false'::pg_catalog.bool]);
+t
+SELECT 'false'::pg_catalog.bool <<@ ARRAY['false'::pg_catalog.bool];
+t
+SELECT ARRAY['false'::pg_catalog.bool] @>> 'false'::pg_catalog.bool;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'false'::pg_catalog.bool = ANY(ARRAY['true'::pg_catalog.bool]);
+SELECT 'false'::pg_catalog.bool <<@ ARRAY['true'::pg_catalog.bool];
+SELECT ARRAY['true'::pg_catalog.bool] @>> 'false'::pg_catalog.bool;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'false'::pg_catalog.bool = ANY(ARRAY['true'::pg_catalog.bool]);
+f
+SELECT 'false'::pg_catalog.bool <<@ ARRAY['true'::pg_catalog.bool];
+f
+SELECT ARRAY['true'::pg_catalog.bool] @>> 'false'::pg_catalog.bool;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['a'::pg_catalog.bpchar]);
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['a'::pg_catalog.bpchar];
+SELECT ARRAY['a'::pg_catalog.bpchar] @>> 'a'::pg_catalog.bpchar;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['a'::pg_catalog.bpchar]);
+t
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['a'::pg_catalog.bpchar];
+t
+SELECT ARRAY['a'::pg_catalog.bpchar] @>> 'a'::pg_catalog.bpchar;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['b'::pg_catalog.bpchar]);
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['b'::pg_catalog.bpchar];
+SELECT ARRAY['b'::pg_catalog.bpchar] @>> 'a'::pg_catalog.bpchar;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'a'::pg_catalog.bpchar = ANY(ARRAY['b'::pg_catalog.bpchar]);
+f
+SELECT 'a'::pg_catalog.bpchar <<@ ARRAY['b'::pg_catalog.bpchar];
+f
+SELECT ARRAY['b'::pg_catalog.bpchar] @>> 'a'::pg_catalog.bpchar;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea = ANY(ARRAY[E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea]);
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea <<@ ARRAY[E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea];
+SELECT ARRAY[E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea] @>> E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea = ANY(ARRAY[E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea]);
+t
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea <<@ ARRAY[E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea];
+t
+SELECT ARRAY[E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea] @>> E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea = ANY(ARRAY[E'\\xdeadbeef'::pg_catalog.bytea]);
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea <<@ ARRAY[E'\\xdeadbeef'::pg_catalog.bytea];
+SELECT ARRAY[E'\\xdeadbeef'::pg_catalog.bytea] @>> E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea = ANY(ARRAY[E'\\xdeadbeef'::pg_catalog.bytea]);
+f
+SELECT E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea <<@ ARRAY[E'\\xdeadbeef'::pg_catalog.bytea];
+f
+SELECT ARRAY[E'\\xdeadbeef'::pg_catalog.bytea] @>> E'\\x0a492077616e6465726564206c6f6e656c79206173206120636c6f75640a5468617420666c6f617473206f6e2068696768206f2765722076616c657320616e642068696c6c732c0a5768656e20616c6c206174206f6e636520492073617720612063726f77642c0a4120686f73742c206f6620676f6c64656e20646166666f64696c733b0a42657369646520746865206c616b652c2062656e65617468207468652074726565732c0a466c7574746572696e6720616e642064616e63696e6720696e2074686520627265657a652e0a0a436f6e74696e756f7573206173207468652073746172732074686174207368696e650a416e64207477696e6b6c65206f6e20746865206d696c6b79207761792c0a546865792073747265746368656420696e206e657665722d656e64696e67206c696e650a416c6f6e6720746865206d617267696e206f662061206261793a0a54656e2074686f7573616e64207361772049206174206120676c616e63652c0a546f7373696e6720746865697220686561647320696e20737072696768746c792064616e63652e0a0a54686520776176657320626573696465207468656d2064616e6365643b2062757420746865790a4f75742d6469642074686520737061726b6c696e6720776176657320696e20676c65653a0a4120706f657420636f756c64206e6f7420627574206265206761792c0a496e20737563682061206a6f63756e6420636f6d70616e793a0a492067617a65642d2d616e642067617a65642d2d627574206c6974746c652074686f756768740a57686174207765616c7468207468652073686f7720746f206d65206861642062726f756768743a0a0a466f72206f66742c207768656e206f6e206d7920636f7563682049206c69650a496e20766163616e74206f7220696e2070656e73697665206d6f6f642c0a5468657920666c6173682075706f6e207468617420696e77617264206579650a57686963682069732074686520626c697373206f6620736f6c69747564653b0a416e64207468656e206d79206865617274207769746820706c6561737572652066696c6c732c0a416e642064616e63657320776974682074686520646166666f64696c732e0a0a2020202020202020202d2d2057696c6c69616d20576f726473776f7274680a'::pg_catalog.bytea;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r'::pg_catalog."char"]);
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r'::pg_catalog."char"];
+SELECT ARRAY['r'::pg_catalog."char"] @>> 'r'::pg_catalog."char";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['r'::pg_catalog."char"]);
+t
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['r'::pg_catalog."char"];
+t
+SELECT ARRAY['r'::pg_catalog."char"] @>> 'r'::pg_catalog."char";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['s'::pg_catalog."char"]);
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['s'::pg_catalog."char"];
+SELECT ARRAY['s'::pg_catalog."char"] @>> 'r'::pg_catalog."char";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'r'::pg_catalog."char" = ANY(ARRAY['s'::pg_catalog."char"]);
+f
+SELECT 'r'::pg_catalog."char" <<@ ARRAY['s'::pg_catalog."char"];
+f
+SELECT ARRAY['s'::pg_catalog."char"] @>> 'r'::pg_catalog."char";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '10.2.10.0/24'::pg_catalog.cidr = ANY(ARRAY['10.2.10.0/24'::pg_catalog.cidr]);
+SELECT '10.2.10.0/24'::pg_catalog.cidr <<@ ARRAY['10.2.10.0/24'::pg_catalog.cidr];
+SELECT ARRAY['10.2.10.0/24'::pg_catalog.cidr] @>> '10.2.10.0/24'::pg_catalog.cidr;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '10.2.10.0/24'::pg_catalog.cidr = ANY(ARRAY['10.2.10.0/24'::pg_catalog.cidr]);
+t
+SELECT '10.2.10.0/24'::pg_catalog.cidr <<@ ARRAY['10.2.10.0/24'::pg_catalog.cidr];
+t
+SELECT ARRAY['10.2.10.0/24'::pg_catalog.cidr] @>> '10.2.10.0/24'::pg_catalog.cidr;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '10.2.10.0/24'::pg_catalog.cidr = ANY(ARRAY['10.2.12.0/24'::pg_catalog.cidr]);
+SELECT '10.2.10.0/24'::pg_catalog.cidr <<@ ARRAY['10.2.12.0/24'::pg_catalog.cidr];
+SELECT ARRAY['10.2.12.0/24'::pg_catalog.cidr] @>> '10.2.10.0/24'::pg_catalog.cidr;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '10.2.10.0/24'::pg_catalog.cidr = ANY(ARRAY['10.2.12.0/24'::pg_catalog.cidr]);
+f
+SELECT '10.2.10.0/24'::pg_catalog.cidr <<@ ARRAY['10.2.12.0/24'::pg_catalog.cidr];
+f
+SELECT ARRAY['10.2.12.0/24'::pg_catalog.cidr] @>> '10.2.10.0/24'::pg_catalog.cidr;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1995-10-13'::pg_catalog.date = ANY(ARRAY['1995-10-13'::pg_catalog.date]);
+SELECT '1995-10-13'::pg_catalog.date <<@ ARRAY['1995-10-13'::pg_catalog.date];
+SELECT ARRAY['1995-10-13'::pg_catalog.date] @>> '1995-10-13'::pg_catalog.date;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1995-10-13'::pg_catalog.date = ANY(ARRAY['1995-10-13'::pg_catalog.date]);
+t
+SELECT '1995-10-13'::pg_catalog.date <<@ ARRAY['1995-10-13'::pg_catalog.date];
+t
+SELECT ARRAY['1995-10-13'::pg_catalog.date] @>> '1995-10-13'::pg_catalog.date;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1995-10-13'::pg_catalog.date = ANY(ARRAY['1996-03-11'::pg_catalog.date]);
+SELECT '1995-10-13'::pg_catalog.date <<@ ARRAY['1996-03-11'::pg_catalog.date];
+SELECT ARRAY['1996-03-11'::pg_catalog.date] @>> '1995-10-13'::pg_catalog.date;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1995-10-13'::pg_catalog.date = ANY(ARRAY['1996-03-11'::pg_catalog.date]);
+f
+SELECT '1995-10-13'::pg_catalog.date <<@ ARRAY['1996-03-11'::pg_catalog.date];
+f
+SELECT ARRAY['1996-03-11'::pg_catalog.date] @>> '1995-10-13'::pg_catalog.date;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange = ANY(ARRAY['[2018-07-01,2018-07-03)'::pg_catalog.daterange]);
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange <<@ ARRAY['[2018-07-01,2018-07-03)'::pg_catalog.daterange];
+SELECT ARRAY['[2018-07-01,2018-07-03)'::pg_catalog.daterange] @>> '[2018-07-01,2018-07-03)'::pg_catalog.daterange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange = ANY(ARRAY['[2018-07-01,2018-07-03)'::pg_catalog.daterange]);
+t
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange <<@ ARRAY['[2018-07-01,2018-07-03)'::pg_catalog.daterange];
+t
+SELECT ARRAY['[2018-07-01,2018-07-03)'::pg_catalog.daterange] @>> '[2018-07-01,2018-07-03)'::pg_catalog.daterange;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange = ANY(ARRAY['[2018-07-01,2018-07-07)'::pg_catalog.daterange]);
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange <<@ ARRAY['[2018-07-01,2018-07-07)'::pg_catalog.daterange];
+SELECT ARRAY['[2018-07-01,2018-07-07)'::pg_catalog.daterange] @>> '[2018-07-01,2018-07-03)'::pg_catalog.daterange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange = ANY(ARRAY['[2018-07-01,2018-07-07)'::pg_catalog.daterange]);
+f
+SELECT '[2018-07-01,2018-07-03)'::pg_catalog.daterange <<@ ARRAY['[2018-07-01,2018-07-07)'::pg_catalog.daterange];
+f
+SELECT ARRAY['[2018-07-01,2018-07-07)'::pg_catalog.daterange] @>> '[2018-07-01,2018-07-03)'::pg_catalog.daterange;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '-1'::pg_catalog.float4 = ANY(ARRAY['-1'::pg_catalog.float4]);
+SELECT '-1'::pg_catalog.float4 <<@ ARRAY['-1'::pg_catalog.float4];
+SELECT ARRAY['-1'::pg_catalog.float4] @>> '-1'::pg_catalog.float4;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '-1'::pg_catalog.float4 = ANY(ARRAY['-1'::pg_catalog.float4]);
+t
+SELECT '-1'::pg_catalog.float4 <<@ ARRAY['-1'::pg_catalog.float4];
+t
+SELECT ARRAY['-1'::pg_catalog.float4] @>> '-1'::pg_catalog.float4;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '-1'::pg_catalog.float4 = ANY(ARRAY['0'::pg_catalog.float4]);
+SELECT '-1'::pg_catalog.float4 <<@ ARRAY['0'::pg_catalog.float4];
+SELECT ARRAY['0'::pg_catalog.float4] @>> '-1'::pg_catalog.float4;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '-1'::pg_catalog.float4 = ANY(ARRAY['0'::pg_catalog.float4]);
+f
+SELECT '-1'::pg_catalog.float4 <<@ ARRAY['0'::pg_catalog.float4];
+f
+SELECT ARRAY['0'::pg_catalog.float4] @>> '-1'::pg_catalog.float4;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '112'::pg_catalog.float8 = ANY(ARRAY['112'::pg_catalog.float8]);
+SELECT '112'::pg_catalog.float8 <<@ ARRAY['112'::pg_catalog.float8];
+SELECT ARRAY['112'::pg_catalog.float8] @>> '112'::pg_catalog.float8;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '112'::pg_catalog.float8 = ANY(ARRAY['112'::pg_catalog.float8]);
+t
+SELECT '112'::pg_catalog.float8 <<@ ARRAY['112'::pg_catalog.float8];
+t
+SELECT ARRAY['112'::pg_catalog.float8] @>> '112'::pg_catalog.float8;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '112'::pg_catalog.float8 = ANY(ARRAY['227104'::pg_catalog.float8]);
+SELECT '112'::pg_catalog.float8 <<@ ARRAY['227104'::pg_catalog.float8];
+SELECT ARRAY['227104'::pg_catalog.float8] @>> '112'::pg_catalog.float8;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '112'::pg_catalog.float8 = ANY(ARRAY['227104'::pg_catalog.float8]);
+f
+SELECT '112'::pg_catalog.float8 <<@ ARRAY['227104'::pg_catalog.float8];
+f
+SELECT ARRAY['227104'::pg_catalog.float8] @>> '112'::pg_catalog.float8;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '10.2.10.103/24'::pg_catalog.inet = ANY(ARRAY['10.2.10.103/24'::pg_catalog.inet]);
+SELECT '10.2.10.103/24'::pg_catalog.inet <<@ ARRAY['10.2.10.103/24'::pg_catalog.inet];
+SELECT ARRAY['10.2.10.103/24'::pg_catalog.inet] @>> '10.2.10.103/24'::pg_catalog.inet;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '10.2.10.103/24'::pg_catalog.inet = ANY(ARRAY['10.2.10.103/24'::pg_catalog.inet]);
+t
+SELECT '10.2.10.103/24'::pg_catalog.inet <<@ ARRAY['10.2.10.103/24'::pg_catalog.inet];
+t
+SELECT ARRAY['10.2.10.103/24'::pg_catalog.inet] @>> '10.2.10.103/24'::pg_catalog.inet;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '10.2.10.103/24'::pg_catalog.inet = ANY(ARRAY['10.2.10.199/24'::pg_catalog.inet]);
+SELECT '10.2.10.103/24'::pg_catalog.inet <<@ ARRAY['10.2.10.199/24'::pg_catalog.inet];
+SELECT ARRAY['10.2.10.199/24'::pg_catalog.inet] @>> '10.2.10.103/24'::pg_catalog.inet;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '10.2.10.103/24'::pg_catalog.inet = ANY(ARRAY['10.2.10.199/24'::pg_catalog.inet]);
+f
+SELECT '10.2.10.103/24'::pg_catalog.inet <<@ ARRAY['10.2.10.199/24'::pg_catalog.inet];
+f
+SELECT ARRAY['10.2.10.199/24'::pg_catalog.inet] @>> '10.2.10.103/24'::pg_catalog.inet;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0'::pg_catalog.int2]);
+SELECT '0'::pg_catalog.int2 <<@ ARRAY['0'::pg_catalog.int2];
+SELECT ARRAY['0'::pg_catalog.int2] @>> '0'::pg_catalog.int2;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['0'::pg_catalog.int2]);
+t
+SELECT '0'::pg_catalog.int2 <<@ ARRAY['0'::pg_catalog.int2];
+t
+SELECT ARRAY['0'::pg_catalog.int2] @>> '0'::pg_catalog.int2;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['1'::pg_catalog.int2]);
+SELECT '0'::pg_catalog.int2 <<@ ARRAY['1'::pg_catalog.int2];
+SELECT ARRAY['1'::pg_catalog.int2] @>> '0'::pg_catalog.int2;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.int2 = ANY(ARRAY['1'::pg_catalog.int2]);
+f
+SELECT '0'::pg_catalog.int2 <<@ ARRAY['1'::pg_catalog.int2];
+f
+SELECT ARRAY['1'::pg_catalog.int2] @>> '0'::pg_catalog.int2;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1'::pg_catalog.int4 = ANY(ARRAY['1'::pg_catalog.int4]);
+SELECT '1'::pg_catalog.int4 <<@ ARRAY['1'::pg_catalog.int4];
+SELECT ARRAY['1'::pg_catalog.int4] @>> '1'::pg_catalog.int4;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1'::pg_catalog.int4 = ANY(ARRAY['1'::pg_catalog.int4]);
+t
+SELECT '1'::pg_catalog.int4 <<@ ARRAY['1'::pg_catalog.int4];
+t
+SELECT ARRAY['1'::pg_catalog.int4] @>> '1'::pg_catalog.int4;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1'::pg_catalog.int4 = ANY(ARRAY['1500'::pg_catalog.int4]);
+SELECT '1'::pg_catalog.int4 <<@ ARRAY['1500'::pg_catalog.int4];
+SELECT ARRAY['1500'::pg_catalog.int4] @>> '1'::pg_catalog.int4;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1'::pg_catalog.int4 = ANY(ARRAY['1500'::pg_catalog.int4]);
+f
+SELECT '1'::pg_catalog.int4 <<@ ARRAY['1500'::pg_catalog.int4];
+f
+SELECT ARRAY['1500'::pg_catalog.int4] @>> '1'::pg_catalog.int4;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '[112,1112)'::pg_catalog.int4range = ANY(ARRAY['[112,1112)'::pg_catalog.int4range]);
+SELECT '[112,1112)'::pg_catalog.int4range <<@ ARRAY['[112,1112)'::pg_catalog.int4range];
+SELECT ARRAY['[112,1112)'::pg_catalog.int4range] @>> '[112,1112)'::pg_catalog.int4range;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '[112,1112)'::pg_catalog.int4range = ANY(ARRAY['[112,1112)'::pg_catalog.int4range]);
+t
+SELECT '[112,1112)'::pg_catalog.int4range <<@ ARRAY['[112,1112)'::pg_catalog.int4range];
+t
+SELECT ARRAY['[112,1112)'::pg_catalog.int4range] @>> '[112,1112)'::pg_catalog.int4range;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '[112,1112)'::pg_catalog.int4range = ANY(ARRAY['[119,1119)'::pg_catalog.int4range]);
+SELECT '[112,1112)'::pg_catalog.int4range <<@ ARRAY['[119,1119)'::pg_catalog.int4range];
+SELECT ARRAY['[119,1119)'::pg_catalog.int4range] @>> '[112,1112)'::pg_catalog.int4range;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '[112,1112)'::pg_catalog.int4range = ANY(ARRAY['[119,1119)'::pg_catalog.int4range]);
+f
+SELECT '[112,1112)'::pg_catalog.int4range <<@ ARRAY['[119,1119)'::pg_catalog.int4range];
+f
+SELECT ARRAY['[119,1119)'::pg_catalog.int4range] @>> '[112,1112)'::pg_catalog.int4range;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.int8 = ANY(ARRAY['0'::pg_catalog.int8]);
+SELECT '0'::pg_catalog.int8 <<@ ARRAY['0'::pg_catalog.int8];
+SELECT ARRAY['0'::pg_catalog.int8] @>> '0'::pg_catalog.int8;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.int8 = ANY(ARRAY['0'::pg_catalog.int8]);
+t
+SELECT '0'::pg_catalog.int8 <<@ ARRAY['0'::pg_catalog.int8];
+t
+SELECT ARRAY['0'::pg_catalog.int8] @>> '0'::pg_catalog.int8;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.int8 = ANY(ARRAY['1000'::pg_catalog.int8]);
+SELECT '0'::pg_catalog.int8 <<@ ARRAY['1000'::pg_catalog.int8];
+SELECT ARRAY['1000'::pg_catalog.int8] @>> '0'::pg_catalog.int8;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.int8 = ANY(ARRAY['1000'::pg_catalog.int8]);
+f
+SELECT '0'::pg_catalog.int8 <<@ ARRAY['1000'::pg_catalog.int8];
+f
+SELECT ARRAY['1000'::pg_catalog.int8] @>> '0'::pg_catalog.int8;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['-01:00:00'::pg_catalog."interval"]);
+SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['-01:00:00'::pg_catalog."interval"];
+SELECT ARRAY['-01:00:00'::pg_catalog."interval"] @>> '-01:00:00'::pg_catalog."interval";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['-01:00:00'::pg_catalog."interval"]);
+t
+SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['-01:00:00'::pg_catalog."interval"];
+t
+SELECT ARRAY['-01:00:00'::pg_catalog."interval"] @>> '-01:00:00'::pg_catalog."interval";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['-02:00:00'::pg_catalog."interval"]);
+SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['-02:00:00'::pg_catalog."interval"];
+SELECT ARRAY['-02:00:00'::pg_catalog."interval"] @>> '-01:00:00'::pg_catalog."interval";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '-01:00:00'::pg_catalog."interval" = ANY(ARRAY['-02:00:00'::pg_catalog."interval"]);
+f
+SELECT '-01:00:00'::pg_catalog."interval" <<@ ARRAY['-02:00:00'::pg_catalog."interval"];
+f
+SELECT ARRAY['-02:00:00'::pg_catalog."interval"] @>> '-01:00:00'::pg_catalog."interval";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '{"age": 25.0}'::pg_catalog.jsonb = ANY(ARRAY['{"age": 25.0}'::pg_catalog.jsonb]);
+SELECT '{"age": 25.0}'::pg_catalog.jsonb <<@ ARRAY['{"age": 25.0}'::pg_catalog.jsonb];
+SELECT ARRAY['{"age": 25.0}'::pg_catalog.jsonb] @>> '{"age": 25.0}'::pg_catalog.jsonb;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '{"age": 25.0}'::pg_catalog.jsonb = ANY(ARRAY['{"age": 25.0}'::pg_catalog.jsonb]);
+t
+SELECT '{"age": 25.0}'::pg_catalog.jsonb <<@ ARRAY['{"age": 25.0}'::pg_catalog.jsonb];
+t
+SELECT ARRAY['{"age": 25.0}'::pg_catalog.jsonb] @>> '{"age": 25.0}'::pg_catalog.jsonb;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '{"age": 25.0}'::pg_catalog.jsonb = ANY(ARRAY['{"age": 25}'::pg_catalog.jsonb]);
+SELECT '{"age": 25.0}'::pg_catalog.jsonb <<@ ARRAY['{"age": 25}'::pg_catalog.jsonb];
+SELECT ARRAY['{"age": 25}'::pg_catalog.jsonb] @>> '{"age": 25.0}'::pg_catalog.jsonb;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '{"age": 25.0}'::pg_catalog.jsonb = ANY(ARRAY['{"age": 25}'::pg_catalog.jsonb]);
+t
+SELECT '{"age": 25.0}'::pg_catalog.jsonb <<@ ARRAY['{"age": 25}'::pg_catalog.jsonb];
+t
+SELECT ARRAY['{"age": 25}'::pg_catalog.jsonb] @>> '{"age": 25.0}'::pg_catalog.jsonb;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr = ANY(ARRAY['00:00:01:00:00:00'::pg_catalog.macaddr]);
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr <<@ ARRAY['00:00:01:00:00:00'::pg_catalog.macaddr];
+SELECT ARRAY['00:00:01:00:00:00'::pg_catalog.macaddr] @>> '00:00:01:00:00:00'::pg_catalog.macaddr;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr = ANY(ARRAY['00:00:01:00:00:00'::pg_catalog.macaddr]);
+t
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr <<@ ARRAY['00:00:01:00:00:00'::pg_catalog.macaddr];
+t
+SELECT ARRAY['00:00:01:00:00:00'::pg_catalog.macaddr] @>> '00:00:01:00:00:00'::pg_catalog.macaddr;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr = ANY(ARRAY['02:00:03:00:01:00'::pg_catalog.macaddr]);
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr <<@ ARRAY['02:00:03:00:01:00'::pg_catalog.macaddr];
+SELECT ARRAY['02:00:03:00:01:00'::pg_catalog.macaddr] @>> '00:00:01:00:00:00'::pg_catalog.macaddr;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr = ANY(ARRAY['02:00:03:00:01:00'::pg_catalog.macaddr]);
+f
+SELECT '00:00:01:00:00:00'::pg_catalog.macaddr <<@ ARRAY['02:00:03:00:01:00'::pg_catalog.macaddr];
+f
+SELECT ARRAY['02:00:03:00:01:00'::pg_catalog.macaddr] @>> '00:00:01:00:00:00'::pg_catalog.macaddr;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '$123.46'::pg_catalog.money = ANY(ARRAY['$123.46'::pg_catalog.money]);
+SELECT '$123.46'::pg_catalog.money <<@ ARRAY['$123.46'::pg_catalog.money];
+SELECT ARRAY['$123.46'::pg_catalog.money] @>> '$123.46'::pg_catalog.money;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '$123.46'::pg_catalog.money = ANY(ARRAY['$123.46'::pg_catalog.money]);
+t
+SELECT '$123.46'::pg_catalog.money <<@ ARRAY['$123.46'::pg_catalog.money];
+t
+SELECT ARRAY['$123.46'::pg_catalog.money] @>> '$123.46'::pg_catalog.money;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '$123.46'::pg_catalog.money = ANY(ARRAY['$7,000.00'::pg_catalog.money]);
+SELECT '$123.46'::pg_catalog.money <<@ ARRAY['$7,000.00'::pg_catalog.money];
+SELECT ARRAY['$7,000.00'::pg_catalog.money] @>> '$123.46'::pg_catalog.money;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '$123.46'::pg_catalog.money = ANY(ARRAY['$7,000.00'::pg_catalog.money]);
+f
+SELECT '$123.46'::pg_catalog.money <<@ ARRAY['$7,000.00'::pg_catalog.money];
+f
+SELECT ARRAY['$7,000.00'::pg_catalog.money] @>> '$123.46'::pg_catalog.money;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['joel'::pg_catalog.name]);
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['joel'::pg_catalog.name];
+SELECT ARRAY['joel'::pg_catalog.name] @>> 'joel'::pg_catalog.name;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['joel'::pg_catalog.name]);
+t
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['joel'::pg_catalog.name];
+t
+SELECT ARRAY['joel'::pg_catalog.name] @>> 'joel'::pg_catalog.name;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['regression'::pg_catalog.name]);
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['regression'::pg_catalog.name];
+SELECT ARRAY['regression'::pg_catalog.name] @>> 'joel'::pg_catalog.name;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'joel'::pg_catalog.name = ANY(ARRAY['regression'::pg_catalog.name]);
+f
+SELECT 'joel'::pg_catalog.name <<@ ARRAY['regression'::pg_catalog.name];
+f
+SELECT ARRAY['regression'::pg_catalog.name] @>> 'joel'::pg_catalog.name;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '229868923'::pg_catalog."numeric" = ANY(ARRAY['1062118.971428571428571428571428571429'::pg_catalog."numeric"]);
+SELECT '229868923'::pg_catalog."numeric" <<@ ARRAY['1062118.971428571428571428571428571429'::pg_catalog."numeric"];
+SELECT ARRAY['1062118.971428571428571428571428571429'::pg_catalog."numeric"] @>> '229868923'::pg_catalog."numeric";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '229868923'::pg_catalog."numeric" = ANY(ARRAY['1062118.971428571428571428571428571429'::pg_catalog."numeric"]);
+f
+SELECT '229868923'::pg_catalog."numeric" <<@ ARRAY['1062118.971428571428571428571428571429'::pg_catalog."numeric"];
+f
+SELECT ARRAY['1062118.971428571428571428571428571429'::pg_catalog."numeric"] @>> '229868923'::pg_catalog."numeric";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '229868923'::pg_catalog."numeric" = ANY(ARRAY['229868923'::pg_catalog."numeric"]);
+SELECT '229868923'::pg_catalog."numeric" <<@ ARRAY['229868923'::pg_catalog."numeric"];
+SELECT ARRAY['229868923'::pg_catalog."numeric"] @>> '229868923'::pg_catalog."numeric";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '229868923'::pg_catalog."numeric" = ANY(ARRAY['229868923'::pg_catalog."numeric"]);
+t
+SELECT '229868923'::pg_catalog."numeric" <<@ ARRAY['229868923'::pg_catalog."numeric"];
+t
+SELECT ARRAY['229868923'::pg_catalog."numeric"] @>> '229868923'::pg_catalog."numeric";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '{(,)}'::pg_catalog.nummultirange = ANY(ARRAY['{(,)}'::pg_catalog.nummultirange]);
+SELECT '{(,)}'::pg_catalog.nummultirange <<@ ARRAY['{(,)}'::pg_catalog.nummultirange];
+SELECT ARRAY['{(,)}'::pg_catalog.nummultirange] @>> '{(,)}'::pg_catalog.nummultirange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '{(,)}'::pg_catalog.nummultirange = ANY(ARRAY['{(,)}'::pg_catalog.nummultirange]);
+t
+SELECT '{(,)}'::pg_catalog.nummultirange <<@ ARRAY['{(,)}'::pg_catalog.nummultirange];
+t
+SELECT ARRAY['{(,)}'::pg_catalog.nummultirange] @>> '{(,)}'::pg_catalog.nummultirange;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '{(,)}'::pg_catalog.nummultirange = ANY(ARRAY['{(,5)}'::pg_catalog.nummultirange]);
+SELECT '{(,)}'::pg_catalog.nummultirange <<@ ARRAY['{(,5)}'::pg_catalog.nummultirange];
+SELECT ARRAY['{(,5)}'::pg_catalog.nummultirange] @>> '{(,)}'::pg_catalog.nummultirange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '{(,)}'::pg_catalog.nummultirange = ANY(ARRAY['{(,5)}'::pg_catalog.nummultirange]);
+f
+SELECT '{(,)}'::pg_catalog.nummultirange <<@ ARRAY['{(,5)}'::pg_catalog.nummultirange];
+f
+SELECT ARRAY['{(,5)}'::pg_catalog.nummultirange] @>> '{(,)}'::pg_catalog.nummultirange;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '(,)'::pg_catalog.numrange = ANY(ARRAY['(,)'::pg_catalog.numrange]);
+SELECT '(,)'::pg_catalog.numrange <<@ ARRAY['(,)'::pg_catalog.numrange];
+SELECT ARRAY['(,)'::pg_catalog.numrange] @>> '(,)'::pg_catalog.numrange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '(,)'::pg_catalog.numrange = ANY(ARRAY['(,)'::pg_catalog.numrange]);
+t
+SELECT '(,)'::pg_catalog.numrange <<@ ARRAY['(,)'::pg_catalog.numrange];
+t
+SELECT ARRAY['(,)'::pg_catalog.numrange] @>> '(,)'::pg_catalog.numrange;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '(,)'::pg_catalog.numrange = ANY(ARRAY['(,5)'::pg_catalog.numrange]);
+SELECT '(,)'::pg_catalog.numrange <<@ ARRAY['(,5)'::pg_catalog.numrange];
+SELECT ARRAY['(,5)'::pg_catalog.numrange] @>> '(,)'::pg_catalog.numrange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '(,)'::pg_catalog.numrange = ANY(ARRAY['(,5)'::pg_catalog.numrange]);
+f
+SELECT '(,)'::pg_catalog.numrange <<@ ARRAY['(,5)'::pg_catalog.numrange];
+f
+SELECT ARRAY['(,5)'::pg_catalog.numrange] @>> '(,)'::pg_catalog.numrange;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '10'::pg_catalog.oid = ANY(ARRAY['10'::pg_catalog.oid]);
+SELECT '10'::pg_catalog.oid <<@ ARRAY['10'::pg_catalog.oid];
+SELECT ARRAY['10'::pg_catalog.oid] @>> '10'::pg_catalog.oid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '10'::pg_catalog.oid = ANY(ARRAY['10'::pg_catalog.oid]);
+t
+SELECT '10'::pg_catalog.oid <<@ ARRAY['10'::pg_catalog.oid];
+t
+SELECT ARRAY['10'::pg_catalog.oid] @>> '10'::pg_catalog.oid;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '10'::pg_catalog.oid = ANY(ARRAY['36489'::pg_catalog.oid]);
+SELECT '10'::pg_catalog.oid <<@ ARRAY['36489'::pg_catalog.oid];
+SELECT ARRAY['36489'::pg_catalog.oid] @>> '10'::pg_catalog.oid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '10'::pg_catalog.oid = ANY(ARRAY['36489'::pg_catalog.oid]);
+f
+SELECT '10'::pg_catalog.oid <<@ ARRAY['36489'::pg_catalog.oid];
+f
+SELECT ARRAY['36489'::pg_catalog.oid] @>> '10'::pg_catalog.oid;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0/18800'::pg_catalog.pg_lsn = ANY(ARRAY['0/18800'::pg_catalog.pg_lsn]);
+SELECT '0/18800'::pg_catalog.pg_lsn <<@ ARRAY['0/18800'::pg_catalog.pg_lsn];
+SELECT ARRAY['0/18800'::pg_catalog.pg_lsn] @>> '0/18800'::pg_catalog.pg_lsn;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0/18800'::pg_catalog.pg_lsn = ANY(ARRAY['0/18800'::pg_catalog.pg_lsn]);
+t
+SELECT '0/18800'::pg_catalog.pg_lsn <<@ ARRAY['0/18800'::pg_catalog.pg_lsn];
+t
+SELECT ARRAY['0/18800'::pg_catalog.pg_lsn] @>> '0/18800'::pg_catalog.pg_lsn;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0/18800'::pg_catalog.pg_lsn = ANY(ARRAY['10/119605'::pg_catalog.pg_lsn]);
+SELECT '0/18800'::pg_catalog.pg_lsn <<@ ARRAY['10/119605'::pg_catalog.pg_lsn];
+SELECT ARRAY['10/119605'::pg_catalog.pg_lsn] @>> '0/18800'::pg_catalog.pg_lsn;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0/18800'::pg_catalog.pg_lsn = ANY(ARRAY['10/119605'::pg_catalog.pg_lsn]);
+f
+SELECT '0/18800'::pg_catalog.pg_lsn <<@ ARRAY['10/119605'::pg_catalog.pg_lsn];
+f
+SELECT ARRAY['10/119605'::pg_catalog.pg_lsn] @>> '0/18800'::pg_catalog.pg_lsn;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['-'::pg_catalog.regproc]);
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['-'::pg_catalog.regproc];
+SELECT ARRAY['-'::pg_catalog.regproc] @>> '-'::pg_catalog.regproc;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['-'::pg_catalog.regproc]);
+t
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['-'::pg_catalog.regproc];
+t
+SELECT ARRAY['-'::pg_catalog.regproc] @>> '-'::pg_catalog.regproc;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['array_larger'::pg_catalog.regproc]);
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['array_larger'::pg_catalog.regproc];
+SELECT ARRAY['array_larger'::pg_catalog.regproc] @>> '-'::pg_catalog.regproc;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '-'::pg_catalog.regproc = ANY(ARRAY['array_larger'::pg_catalog.regproc]);
+f
+SELECT '-'::pg_catalog.regproc <<@ ARRAY['array_larger'::pg_catalog.regproc];
+f
+SELECT ARRAY['array_larger'::pg_catalog.regproc] @>> '-'::pg_catalog.regproc;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['bigint'::pg_catalog.regtype]);
+SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['bigint'::pg_catalog.regtype];
+SELECT ARRAY['bigint'::pg_catalog.regtype] @>> 'bigint'::pg_catalog.regtype;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['bigint'::pg_catalog.regtype]);
+t
+SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['bigint'::pg_catalog.regtype];
+t
+SELECT ARRAY['bigint'::pg_catalog.regtype] @>> 'bigint'::pg_catalog.regtype;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['integer'::pg_catalog.regtype]);
+SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['integer'::pg_catalog.regtype];
+SELECT ARRAY['integer'::pg_catalog.regtype] @>> 'bigint'::pg_catalog.regtype;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'bigint'::pg_catalog.regtype = ANY(ARRAY['integer'::pg_catalog.regtype]);
+f
+SELECT 'bigint'::pg_catalog.regtype <<@ ARRAY['integer'::pg_catalog.regtype];
+f
+SELECT ARRAY['integer'::pg_catalog.regtype] @>> 'bigint'::pg_catalog.regtype;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.text = ANY(ARRAY['0'::pg_catalog.text]);
+SELECT '0'::pg_catalog.text <<@ ARRAY['0'::pg_catalog.text];
+SELECT ARRAY['0'::pg_catalog.text] @>> '0'::pg_catalog.text;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.text = ANY(ARRAY['0'::pg_catalog.text]);
+t
+SELECT '0'::pg_catalog.text <<@ ARRAY['0'::pg_catalog.text];
+t
+SELECT ARRAY['0'::pg_catalog.text] @>> '0'::pg_catalog.text;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.text = ANY(ARRAY['I'::pg_catalog.text]);
+SELECT '0'::pg_catalog.text <<@ ARRAY['I'::pg_catalog.text];
+SELECT ARRAY['I'::pg_catalog.text] @>> '0'::pg_catalog.text;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.text = ANY(ARRAY['I'::pg_catalog.text]);
+f
+SELECT '0'::pg_catalog.text <<@ ARRAY['I'::pg_catalog.text];
+f
+SELECT ARRAY['I'::pg_catalog.text] @>> '0'::pg_catalog.text;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '(1311,11)'::pg_catalog.tid = ANY(ARRAY['(1311,11)'::pg_catalog.tid]);
+SELECT '(1311,11)'::pg_catalog.tid <<@ ARRAY['(1311,11)'::pg_catalog.tid];
+SELECT ARRAY['(1311,11)'::pg_catalog.tid] @>> '(1311,11)'::pg_catalog.tid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '(1311,11)'::pg_catalog.tid = ANY(ARRAY['(1311,11)'::pg_catalog.tid]);
+t
+SELECT '(1311,11)'::pg_catalog.tid <<@ ARRAY['(1311,11)'::pg_catalog.tid];
+t
+SELECT ARRAY['(1311,11)'::pg_catalog.tid] @>> '(1311,11)'::pg_catalog.tid;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '(1311,11)'::pg_catalog.tid = ANY(ARRAY['(1314,14)'::pg_catalog.tid]);
+SELECT '(1311,11)'::pg_catalog.tid <<@ ARRAY['(1314,14)'::pg_catalog.tid];
+SELECT ARRAY['(1314,14)'::pg_catalog.tid] @>> '(1311,11)'::pg_catalog.tid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '(1311,11)'::pg_catalog.tid = ANY(ARRAY['(1314,14)'::pg_catalog.tid]);
+f
+SELECT '(1311,11)'::pg_catalog.tid <<@ ARRAY['(1314,14)'::pg_catalog.tid];
+f
+SELECT ARRAY['(1314,14)'::pg_catalog.tid] @>> '(1311,11)'::pg_catalog.tid;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:22:21'::pg_catalog."time"]);
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:22:21'::pg_catalog."time"];
+SELECT ARRAY['01:22:21'::pg_catalog."time"] @>> '01:22:21'::pg_catalog."time";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:22:21'::pg_catalog."time"]);
+t
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:22:21'::pg_catalog."time"];
+t
+SELECT ARRAY['01:22:21'::pg_catalog."time"] @>> '01:22:21'::pg_catalog."time";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:23:16.5'::pg_catalog."time"]);
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:23:16.5'::pg_catalog."time"];
+SELECT ARRAY['01:23:16.5'::pg_catalog."time"] @>> '01:22:21'::pg_catalog."time";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '01:22:21'::pg_catalog."time" = ANY(ARRAY['01:23:16.5'::pg_catalog."time"]);
+f
+SELECT '01:22:21'::pg_catalog."time" <<@ ARRAY['01:23:16.5'::pg_catalog."time"];
+f
+SELECT ARRAY['01:23:16.5'::pg_catalog."time"] @>> '01:22:21'::pg_catalog."time";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" = ANY(ARRAY['1942-10-20 13:30:21'::pg_catalog."timestamp"]);
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" <<@ ARRAY['1942-10-20 13:30:21'::pg_catalog."timestamp"];
+SELECT ARRAY['1942-10-20 13:30:21'::pg_catalog."timestamp"] @>> '1942-10-20 13:30:21'::pg_catalog."timestamp";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" = ANY(ARRAY['1942-10-20 13:30:21'::pg_catalog."timestamp"]);
+t
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" <<@ ARRAY['1942-10-20 13:30:21'::pg_catalog."timestamp"];
+t
+SELECT ARRAY['1942-10-20 13:30:21'::pg_catalog."timestamp"] @>> '1942-10-20 13:30:21'::pg_catalog."timestamp";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" = ANY(ARRAY['1943-06-04 22:30:21'::pg_catalog."timestamp"]);
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" <<@ ARRAY['1943-06-04 22:30:21'::pg_catalog."timestamp"];
+SELECT ARRAY['1943-06-04 22:30:21'::pg_catalog."timestamp"] @>> '1942-10-20 13:30:21'::pg_catalog."timestamp";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" = ANY(ARRAY['1943-06-04 22:30:21'::pg_catalog."timestamp"]);
+f
+SELECT '1942-10-20 13:30:21'::pg_catalog."timestamp" <<@ ARRAY['1943-06-04 22:30:21'::pg_catalog."timestamp"];
+f
+SELECT ARRAY['1943-06-04 22:30:21'::pg_catalog."timestamp"] @>> '1942-10-20 13:30:21'::pg_catalog."timestamp";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz = ANY(ARRAY['2021-02-16 06:50:27.055977+01'::pg_catalog.timestamptz]);
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz <<@ ARRAY['2021-02-16 06:50:27.055977+01'::pg_catalog.timestamptz];
+SELECT ARRAY['2021-02-16 06:50:27.055977+01'::pg_catalog.timestamptz] @>> '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz = ANY(ARRAY['2021-02-16 06:50:27.055977+01'::pg_catalog.timestamptz]);
+f
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz <<@ ARRAY['2021-02-16 06:50:27.055977+01'::pg_catalog.timestamptz];
+f
+SELECT ARRAY['2021-02-16 06:50:27.055977+01'::pg_catalog.timestamptz] @>> '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz = ANY(ARRAY['2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz]);
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz <<@ ARRAY['2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz];
+SELECT ARRAY['2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz] @>> '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz = ANY(ARRAY['2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz]);
+t
+SELECT '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz <<@ ARRAY['2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz];
+t
+SELECT ARRAY['2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz] @>> '2021-02-16 07:41:58.533862+01'::pg_catalog.timestamptz;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '01:30:20+02'::pg_catalog.timetz = ANY(ARRAY['01:30:20+02'::pg_catalog.timetz]);
+SELECT '01:30:20+02'::pg_catalog.timetz <<@ ARRAY['01:30:20+02'::pg_catalog.timetz];
+SELECT ARRAY['01:30:20+02'::pg_catalog.timetz] @>> '01:30:20+02'::pg_catalog.timetz;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '01:30:20+02'::pg_catalog.timetz = ANY(ARRAY['01:30:20+02'::pg_catalog.timetz]);
+t
+SELECT '01:30:20+02'::pg_catalog.timetz <<@ ARRAY['01:30:20+02'::pg_catalog.timetz];
+t
+SELECT ARRAY['01:30:20+02'::pg_catalog.timetz] @>> '01:30:20+02'::pg_catalog.timetz;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '01:30:20+02'::pg_catalog.timetz = ANY(ARRAY['01:30:35+02'::pg_catalog.timetz]);
+SELECT '01:30:20+02'::pg_catalog.timetz <<@ ARRAY['01:30:35+02'::pg_catalog.timetz];
+SELECT ARRAY['01:30:35+02'::pg_catalog.timetz] @>> '01:30:20+02'::pg_catalog.timetz;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '01:30:20+02'::pg_catalog.timetz = ANY(ARRAY['01:30:35+02'::pg_catalog.timetz]);
+f
+SELECT '01:30:20+02'::pg_catalog.timetz <<@ ARRAY['01:30:35+02'::pg_catalog.timetz];
+f
+SELECT ARRAY['01:30:35+02'::pg_catalog.timetz] @>> '01:30:20+02'::pg_catalog.timetz;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery = ANY(ARRAY['''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery]);
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery <<@ ARRAY['''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery];
+SELECT ARRAY['''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery] @>> '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery = ANY(ARRAY['''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery]);
+t
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery <<@ ARRAY['''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery];
+t
+SELECT ARRAY['''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery] @>> '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery = ANY(ARRAY['''5'' <-> ''6'''::pg_catalog.tsquery]);
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery <<@ ARRAY['''5'' <-> ''6'''::pg_catalog.tsquery];
+SELECT ARRAY['''5'' <-> ''6'''::pg_catalog.tsquery] @>> '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery = ANY(ARRAY['''5'' <-> ''6'''::pg_catalog.tsquery]);
+f
+SELECT '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery <<@ ARRAY['''5'' <-> ''6'''::pg_catalog.tsquery];
+f
+SELECT ARRAY['''5'' <-> ''6'''::pg_catalog.tsquery] @>> '''1'' & ''2'' <-> ''3'''::pg_catalog.tsquery;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange = ANY(ARRAY['["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange]);
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange <<@ ARRAY['["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange];
+SELECT ARRAY['["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange] @>> '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange = ANY(ARRAY['["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange]);
+t
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange <<@ ARRAY['["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange];
+t
+SELECT ARRAY['["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange] @>> '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange = ANY(ARRAY['["2010-01-02 10:10:00","2010-01-02 11:10:00")'::pg_catalog.tsrange]);
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange <<@ ARRAY['["2010-01-02 10:10:00","2010-01-02 11:10:00")'::pg_catalog.tsrange];
+SELECT ARRAY['["2010-01-02 10:10:00","2010-01-02 11:10:00")'::pg_catalog.tsrange] @>> '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange = ANY(ARRAY['["2010-01-02 10:10:00","2010-01-02 11:10:00")'::pg_catalog.tsrange]);
+f
+SELECT '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange <<@ ARRAY['["2010-01-02 10:10:00","2010-01-02 11:10:00")'::pg_catalog.tsrange];
+f
+SELECT ARRAY['["2010-01-02 10:10:00","2010-01-02 11:10:00")'::pg_catalog.tsrange] @>> '["2010-01-02 10:00:00","2010-01-02 11:00:00")'::pg_catalog.tsrange;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector = ANY(ARRAY['''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector]);
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector <<@ ARRAY['''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector];
+SELECT ARRAY['''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector] @>> '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector = ANY(ARRAY['''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector]);
+t
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector <<@ ARRAY['''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector];
+t
+SELECT ARRAY['''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector] @>> '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector = ANY(ARRAY['''0h'' ''42'' ''ak'' ''al'' ''bf'' ''bz'' ''co'' ''d3'' ''dc'' ''dt'' ''dy'' ''ed'' ''ee'' ''eg'' ''ev'' ''ew'' ''fg'' ''fr'' ''fz'' ''gi'' ''gy'' ''ha'' ''hb'' ''hd'' ''hl'' ''hn'' ''hs'' ''ht'' ''ij'' ''io'' ''iv'' ''jh'' ''jl'' ''jr'' ''kc'' ''kj'' ''kt'' ''ku'' ''ky'' ''ln'' ''ml'' ''mu'' ''ng'' ''nm'' ''o0'' ''o1'' ''of'' ''oh'' ''or'' ''p8'' ''q8'' ''qb'' ''qp'' ''qr'' ''qt'' ''qu'' ''qv'' ''r8'' ''rj'' ''rl'' ''rp'' ''rw'' ''sk'' ''ss'' ''sw'' ''t9'' ''th'' ''tl'' ''u5'' ''uj'' ''us'' ''vg'' ''vt'' ''vz'' ''w4'' ''wb'' ''we'' ''wl'' ''ww'' ''wx'' ''wy'' ''wz'' ''xj'' ''yb'' ''yg'' ''yn'' ''yp'' ''ys'' ''yw'' ''yz'' ''zk'' ''zp'' ''zu'''::pg_catalog.tsvector]);
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector <<@ ARRAY['''0h'' ''42'' ''ak'' ''al'' ''bf'' ''bz'' ''co'' ''d3'' ''dc'' ''dt'' ''dy'' ''ed'' ''ee'' ''eg'' ''ev'' ''ew'' ''fg'' ''fr'' ''fz'' ''gi'' ''gy'' ''ha'' ''hb'' ''hd'' ''hl'' ''hn'' ''hs'' ''ht'' ''ij'' ''io'' ''iv'' ''jh'' ''jl'' ''jr'' ''kc'' ''kj'' ''kt'' ''ku'' ''ky'' ''ln'' ''ml'' ''mu'' ''ng'' ''nm'' ''o0'' ''o1'' ''of'' ''oh'' ''or'' ''p8'' ''q8'' ''qb'' ''qp'' ''qr'' ''qt'' ''qu'' ''qv'' ''r8'' ''rj'' ''rl'' ''rp'' ''rw'' ''sk'' ''ss'' ''sw'' ''t9'' ''th'' ''tl'' ''u5'' ''uj'' ''us'' ''vg'' ''vt'' ''vz'' ''w4'' ''wb'' ''we'' ''wl'' ''ww'' ''wx'' ''wy'' ''wz'' ''xj'' ''yb'' ''yg'' ''yn'' ''yp'' ''ys'' ''yw'' ''yz'' ''zk'' ''zp'' ''zu'''::pg_catalog.tsvector];
+SELECT ARRAY['''0h'' ''42'' ''ak'' ''al'' ''bf'' ''bz'' ''co'' ''d3'' ''dc'' ''dt'' ''dy'' ''ed'' ''ee'' ''eg'' ''ev'' ''ew'' ''fg'' ''fr'' ''fz'' ''gi'' ''gy'' ''ha'' ''hb'' ''hd'' ''hl'' ''hn'' ''hs'' ''ht'' ''ij'' ''io'' ''iv'' ''jh'' ''jl'' ''jr'' ''kc'' ''kj'' ''kt'' ''ku'' ''ky'' ''ln'' ''ml'' ''mu'' ''ng'' ''nm'' ''o0'' ''o1'' ''of'' ''oh'' ''or'' ''p8'' ''q8'' ''qb'' ''qp'' ''qr'' ''qt'' ''qu'' ''qv'' ''r8'' ''rj'' ''rl'' ''rp'' ''rw'' ''sk'' ''ss'' ''sw'' ''t9'' ''th'' ''tl'' ''u5'' ''uj'' ''us'' ''vg'' ''vt'' ''vz'' ''w4'' ''wb'' ''we'' ''wl'' ''ww'' ''wx'' ''wy'' ''wz'' ''xj'' ''yb'' ''yg'' ''yn'' ''yp'' ''ys'' ''yw'' ''yz'' ''zk'' ''zp'' ''zu'''::pg_catalog.tsvector] @>> '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector = ANY(ARRAY['''0h'' ''42'' ''ak'' ''al'' ''bf'' ''bz'' ''co'' ''d3'' ''dc'' ''dt'' ''dy'' ''ed'' ''ee'' ''eg'' ''ev'' ''ew'' ''fg'' ''fr'' ''fz'' ''gi'' ''gy'' ''ha'' ''hb'' ''hd'' ''hl'' ''hn'' ''hs'' ''ht'' ''ij'' ''io'' ''iv'' ''jh'' ''jl'' ''jr'' ''kc'' ''kj'' ''kt'' ''ku'' ''ky'' ''ln'' ''ml'' ''mu'' ''ng'' ''nm'' ''o0'' ''o1'' ''of'' ''oh'' ''or'' ''p8'' ''q8'' ''qb'' ''qp'' ''qr'' ''qt'' ''qu'' ''qv'' ''r8'' ''rj'' ''rl'' ''rp'' ''rw'' ''sk'' ''ss'' ''sw'' ''t9'' ''th'' ''tl'' ''u5'' ''uj'' ''us'' ''vg'' ''vt'' ''vz'' ''w4'' ''wb'' ''we'' ''wl'' ''ww'' ''wx'' ''wy'' ''wz'' ''xj'' ''yb'' ''yg'' ''yn'' ''yp'' ''ys'' ''yw'' ''yz'' ''zk'' ''zp'' ''zu'''::pg_catalog.tsvector]);
+f
+SELECT '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector <<@ ARRAY['''0h'' ''42'' ''ak'' ''al'' ''bf'' ''bz'' ''co'' ''d3'' ''dc'' ''dt'' ''dy'' ''ed'' ''ee'' ''eg'' ''ev'' ''ew'' ''fg'' ''fr'' ''fz'' ''gi'' ''gy'' ''ha'' ''hb'' ''hd'' ''hl'' ''hn'' ''hs'' ''ht'' ''ij'' ''io'' ''iv'' ''jh'' ''jl'' ''jr'' ''kc'' ''kj'' ''kt'' ''ku'' ''ky'' ''ln'' ''ml'' ''mu'' ''ng'' ''nm'' ''o0'' ''o1'' ''of'' ''oh'' ''or'' ''p8'' ''q8'' ''qb'' ''qp'' ''qr'' ''qt'' ''qu'' ''qv'' ''r8'' ''rj'' ''rl'' ''rp'' ''rw'' ''sk'' ''ss'' ''sw'' ''t9'' ''th'' ''tl'' ''u5'' ''uj'' ''us'' ''vg'' ''vt'' ''vz'' ''w4'' ''wb'' ''we'' ''wl'' ''ww'' ''wx'' ''wy'' ''wz'' ''xj'' ''yb'' ''yg'' ''yn'' ''yp'' ''ys'' ''yw'' ''yz'' ''zk'' ''zp'' ''zu'''::pg_catalog.tsvector];
+f
+SELECT ARRAY['''0h'' ''42'' ''ak'' ''al'' ''bf'' ''bz'' ''co'' ''d3'' ''dc'' ''dt'' ''dy'' ''ed'' ''ee'' ''eg'' ''ev'' ''ew'' ''fg'' ''fr'' ''fz'' ''gi'' ''gy'' ''ha'' ''hb'' ''hd'' ''hl'' ''hn'' ''hs'' ''ht'' ''ij'' ''io'' ''iv'' ''jh'' ''jl'' ''jr'' ''kc'' ''kj'' ''kt'' ''ku'' ''ky'' ''ln'' ''ml'' ''mu'' ''ng'' ''nm'' ''o0'' ''o1'' ''of'' ''oh'' ''or'' ''p8'' ''q8'' ''qb'' ''qp'' ''qr'' ''qt'' ''qu'' ''qv'' ''r8'' ''rj'' ''rl'' ''rp'' ''rw'' ''sk'' ''ss'' ''sw'' ''t9'' ''th'' ''tl'' ''u5'' ''uj'' ''us'' ''vg'' ''vt'' ''vz'' ''w4'' ''wb'' ''we'' ''wl'' ''ww'' ''wx'' ''wy'' ''wz'' ''xj'' ''yb'' ''yg'' ''yn'' ''yp'' ''ys'' ''yw'' ''yz'' ''zk'' ''zp'' ''zu'''::pg_catalog.tsvector] @>> '''0e'' ''a0'' ''a1'' ''a5'' ''ad'' ''ao'' ''bp'' ''bw'' ''c0'' ''ca'' ''cw'' ''cx'' ''cy'' ''dg'' ''e8'' ''eb'' ''ef'' ''ek'' ''fd'' ''fk'' ''fv'' ''g3'' ''gj'' ''gn'' ''gw'' ''hr'' ''if'' ''ij'' ''is'' ''ix'' ''j7'' ''km'' ''kp'' ''kq'' ''ks'' ''kt'' ''kv'' ''lk'' ''mj'' ''mn'' ''mv'' ''mz'' ''nn'' ''o5'' ''oa'' ''ol'' ''on'' ''os'' ''pa'' ''pb'' ''pf'' ''po'' ''pq'' ''pr'' ''pv'' ''py'' ''q1'' ''q6'' ''qf'' ''qh'' ''qj'' ''qn'' ''qt'' ''qu'' ''qw'' ''rf'' ''rk'' ''rt'' ''s5'' ''sq'' ''ss'' ''t5'' ''ta'' ''th'' ''tj'' ''to'' ''ts'' ''tx'' ''tz'' ''u0'' ''ua'' ''ug'' ''ui'' ''uw'' ''ux'' ''vh'' ''vp'' ''we'' ''wg'' ''wi'' ''wj'' ''wp'' ''wq'' ''xm'' ''y6'' ''yr'' ''yt'' ''yu'' ''z8'' ''zs'''::pg_catalog.tsvector;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid = ANY(ARRAY['00590059-0059-0059-0059-005900590059'::pg_catalog.uuid]);
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid <<@ ARRAY['00590059-0059-0059-0059-005900590059'::pg_catalog.uuid];
+SELECT ARRAY['00590059-0059-0059-0059-005900590059'::pg_catalog.uuid] @>> '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid = ANY(ARRAY['00590059-0059-0059-0059-005900590059'::pg_catalog.uuid]);
+t
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid <<@ ARRAY['00590059-0059-0059-0059-005900590059'::pg_catalog.uuid];
+t
+SELECT ARRAY['00590059-0059-0059-0059-005900590059'::pg_catalog.uuid] @>> '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid = ANY(ARRAY['02090209-0209-0209-0209-020902090209'::pg_catalog.uuid]);
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid <<@ ARRAY['02090209-0209-0209-0209-020902090209'::pg_catalog.uuid];
+SELECT ARRAY['02090209-0209-0209-0209-020902090209'::pg_catalog.uuid] @>> '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid = ANY(ARRAY['02090209-0209-0209-0209-020902090209'::pg_catalog.uuid]);
+f
+SELECT '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid <<@ ARRAY['02090209-0209-0209-0209-020902090209'::pg_catalog.uuid];
+f
+SELECT ARRAY['02090209-0209-0209-0209-020902090209'::pg_catalog.uuid] @>> '00590059-0059-0059-0059-005900590059'::pg_catalog.uuid;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1001'::pg_catalog.varbit = ANY(ARRAY['0101'::pg_catalog.varbit]);
+SELECT '1001'::pg_catalog.varbit <<@ ARRAY['0101'::pg_catalog.varbit];
+SELECT ARRAY['0101'::pg_catalog.varbit] @>> '1001'::pg_catalog.varbit;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1001'::pg_catalog.varbit = ANY(ARRAY['0101'::pg_catalog.varbit]);
+f
+SELECT '1001'::pg_catalog.varbit <<@ ARRAY['0101'::pg_catalog.varbit];
+f
+SELECT ARRAY['0101'::pg_catalog.varbit] @>> '1001'::pg_catalog.varbit;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '1001'::pg_catalog.varbit = ANY(ARRAY['1001'::pg_catalog.varbit]);
+SELECT '1001'::pg_catalog.varbit <<@ ARRAY['1001'::pg_catalog.varbit];
+SELECT ARRAY['1001'::pg_catalog.varbit] @>> '1001'::pg_catalog.varbit;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '1001'::pg_catalog.varbit = ANY(ARRAY['1001'::pg_catalog.varbit]);
+t
+SELECT '1001'::pg_catalog.varbit <<@ ARRAY['1001'::pg_catalog.varbit];
+t
+SELECT ARRAY['1001'::pg_catalog.varbit] @>> '1001'::pg_catalog.varbit;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['NO'::pg_catalog."varchar"]);
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['NO'::pg_catalog."varchar"];
+SELECT ARRAY['NO'::pg_catalog."varchar"] @>> 'c'::pg_catalog."varchar";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['NO'::pg_catalog."varchar"]);
+f
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['NO'::pg_catalog."varchar"];
+f
+SELECT ARRAY['NO'::pg_catalog."varchar"] @>> 'c'::pg_catalog."varchar";
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['c'::pg_catalog."varchar"]);
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['c'::pg_catalog."varchar"];
+SELECT ARRAY['c'::pg_catalog."varchar"] @>> 'c'::pg_catalog."varchar";
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT 'c'::pg_catalog."varchar" = ANY(ARRAY['c'::pg_catalog."varchar"]);
+t
+SELECT 'c'::pg_catalog."varchar" <<@ ARRAY['c'::pg_catalog."varchar"];
+t
+SELECT ARRAY['c'::pg_catalog."varchar"] @>> 'c'::pg_catalog."varchar";
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0'::pg_catalog.xid]);
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0'::pg_catalog.xid];
+SELECT ARRAY['0'::pg_catalog.xid] @>> '0'::pg_catalog.xid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['0'::pg_catalog.xid]);
+t
+SELECT '0'::pg_catalog.xid <<@ ARRAY['0'::pg_catalog.xid];
+t
+SELECT ARRAY['0'::pg_catalog.xid] @>> '0'::pg_catalog.xid;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['10010'::pg_catalog.xid]);
+SELECT '0'::pg_catalog.xid <<@ ARRAY['10010'::pg_catalog.xid];
+SELECT ARRAY['10010'::pg_catalog.xid] @>> '0'::pg_catalog.xid;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '0'::pg_catalog.xid = ANY(ARRAY['10010'::pg_catalog.xid]);
+f
+SELECT '0'::pg_catalog.xid <<@ ARRAY['10010'::pg_catalog.xid];
+f
+SELECT ARRAY['10010'::pg_catalog.xid] @>> '0'::pg_catalog.xid;
+f
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '(,)'::public.textrange = ANY(ARRAY['(,)'::public.textrange]);
+SELECT '(,)'::public.textrange <<@ ARRAY['(,)'::public.textrange];
+SELECT ARRAY['(,)'::public.textrange] @>> '(,)'::public.textrange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '(,)'::public.textrange = ANY(ARRAY['(,)'::public.textrange]);
+t
+SELECT '(,)'::public.textrange <<@ ARRAY['(,)'::public.textrange];
+t
+SELECT ARRAY['(,)'::public.textrange] @>> '(,)'::public.textrange;
+t
+
+psql:type-test.sql:171: NOTICE:  
+-- TEST:
+SELECT '(,)'::public.textrange = ANY(ARRAY['(,q)'::public.textrange]);
+SELECT '(,)'::public.textrange <<@ ARRAY['(,q)'::public.textrange];
+SELECT ARRAY['(,q)'::public.textrange] @>> '(,)'::public.textrange;
+
+psql:type-test.sql:171: NOTICE:  
+-- EXPECTED:
+SELECT '(,)'::public.textrange = ANY(ARRAY['(,q)'::public.textrange]);
+f
+SELECT '(,)'::public.textrange <<@ ARRAY['(,q)'::public.textrange];
+f
+SELECT ARRAY['(,q)'::public.textrange] @>> '(,)'::public.textrange;
+f
+
+psql:type-test.sql:171: NOTICE:  
 ========================
- 144 of 21632 tests failed.
+ 0 of 5202 tests failed.
 ========================
 

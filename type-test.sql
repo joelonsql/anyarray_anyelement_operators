@@ -5,9 +5,10 @@ udt_schema text,
 udt_name text
 );
 
-CREATE TYPE sql_cmd_pairs AS (
+CREATE TYPE sql_cmds AS (
 sql1 text,
-sql2 text
+sql2 text,
+sql3 text
 );
 
 CREATE TABLE test_values (
@@ -64,6 +65,8 @@ LOOP
   END LOOP;
 END LOOP;
 
+DELETE FROM test_values WHERE value2 IS NULL;
+
 END
 $_$;
 
@@ -75,14 +78,16 @@ _udt_schema2 text;
 _udt_name2 text;
 _value1 text;
 _value2 text;
-_value3 text;
 _error1 text;
 _error2 text;
+_error3 text;
 _bool1 boolean;
 _bool2 boolean;
+_bool3 boolean;
 _sql1 text;
 _sql2 text;
-_sql_cmd_pair sql_cmd_pairs;
+_sql3 text;
+_sql_cmds sql_cmds;
 _failed integer := 0;
 _tests integer := 0;
 BEGIN
@@ -106,7 +111,7 @@ FROM
   test_values AS a
 CROSS JOIN
   test_values AS b
-UNION ALL
+UNION
 SELECT
   a.udt_schema,
   a.udt_name,
@@ -120,43 +125,45 @@ CROSS JOIN
   test_values AS b
 ORDER BY 1,2,3,4,5,6
 LOOP
-  FOREACH _value3 IN ARRAY ARRAY[_value1,_value2] LOOP
-    FOREACH _sql_cmd_pair IN ARRAY ARRAY[
-      ROW(
-        format('SELECT %1$L::%3$I.%4$I = ANY(ARRAY[%2$L::%5$I.%6$I])', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
-        format('SELECT %1$L::%3$I.%4$I <<@ ARRAY[%2$L::%5$I.%6$I]', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
-      )::sql_cmd_pairs,
-      ROW(
-        format('SELECT %1$L::%5$I.%6$I = ANY(ARRAY[%2$L::%3$I.%4$I])', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
-        format('SELECT ARRAY[%2$L::%3$I.%4$I] @>> %1$L::%5$I.%6$I', _value1, _value3, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
-      )::sql_cmd_pairs
-    ] LOOP
-      _bool1 := NULL;
-      _bool2 := NULL;
-      _error1 := NULL;
-      _error2 := NULL;
-      BEGIN
-        EXECUTE _sql_cmd_pair.sql1
-        INTO _bool1;
-      EXCEPTION WHEN OTHERS THEN
-        _error1 := SQLERRM;
-      END;
-      BEGIN
-        EXECUTE _sql_cmd_pair.sql2
-        INTO _bool2;
-      EXCEPTION WHEN OTHERS THEN
-        _error2 := SQLERRM;
-      END;
-      IF _bool1 IS NOT DISTINCT FROM _bool2
-      AND (_error1 IS NULL) = (_error2 IS NULL)
-      THEN
-        -- OK
-      ELSE
-        RAISE WARNING E'\nSQL queries produced different results:\n%\n%\n%\n%\n', _sql_cmd_pair.sql1, COALESCE(_bool1::text, _error1), _sql_cmd_pair.sql2, COALESCE(_bool2::text, _error2);
-        _failed := _failed + 1;
-      END IF;
-      _tests := _tests + 1;
-    END LOOP;
+  FOREACH _sql_cmds IN ARRAY ARRAY[
+    ROW(
+      format('SELECT %1$L::%3$I.%4$I = ANY(ARRAY[%2$L::%5$I.%6$I]);', _value1, _value2, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
+      format('SELECT %1$L::%3$I.%4$I <<@ ARRAY[%2$L::%5$I.%6$I];', _value1, _value2, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2),
+      format('SELECT ARRAY[%2$L::%3$I.%4$I] @>> %1$L::%5$I.%6$I;', _value1, _value2, _udt_schema1, _udt_name1, _udt_schema2, _udt_name2)
+    )::sql_cmds
+  ] LOOP
+    _bool1 := NULL;
+    _bool2 := NULL;
+    _bool3 := NULL;
+    _error1 := NULL;
+    _error2 := NULL;
+    _error3 := NULL;
+    BEGIN
+      EXECUTE _sql_cmds.sql1
+      INTO _bool1;
+    EXCEPTION WHEN OTHERS THEN
+      _error1 := SQLERRM;
+    END;
+    BEGIN
+      EXECUTE _sql_cmds.sql2
+      INTO _bool2;
+    EXCEPTION WHEN OTHERS THEN
+      _error2 := SQLERRM;
+    END;
+    BEGIN
+      EXECUTE _sql_cmds.sql3
+      INTO _bool3;
+    EXCEPTION WHEN OTHERS THEN
+      _error3 := SQLERRM;
+    END;
+    IF _bool1 = _bool2 AND _bool2 = _bool3 THEN
+      RAISE NOTICE E'\n-- TEST:\n%\n%\n%\n', _sql_cmds.sql1, _sql_cmds.sql2, _sql_cmds.sql3;
+      RAISE NOTICE E'\n-- EXPECTED:\n%\n%\n%\n%\n%\n%\n', _sql_cmds.sql1, _bool1, _sql_cmds.sql2, _bool2, _sql_cmds.sql3, _bool3;
+    ELSIF _bool1 <> _bool2 OR _bool2 <> _bool3 OR _bool1 <> _bool3 THEN
+      RAISE WARNING E'\nSQL queries produced different results:\n%\n%\n%\n%\n%\n%\n', _sql_cmds.sql1, COALESCE(_bool1::text, _error1), _sql_cmds.sql2, COALESCE(_bool2::text, _error2), _sql_cmds.sql3, COALESCE(_bool3::text, _error3);
+      _failed := _failed + 1;
+    END IF;
+    _tests := _tests + 1;
   END LOOP;
 END LOOP;
 RAISE NOTICE E'\n========================\n % of % tests failed.\n========================\n', _failed, _tests;
