@@ -1,0 +1,24 @@
+2c2
+< index 1ab31a9056..5fc624e621 100644
+---
+> index 1ab31a9056..a7cfb16d8b 100644
+11c11
+< +        <type>anyarray</type> <literal>@&gt;&gt;</literal> <type>anycompatiblenonarray</type>
+---
+> +        <type>anyarray</type> <literal>@&gt;&gt;</literal> <type>anyelement</type>
+25c25
+< +        <type>anycompatiblenonarray</type> <literal>&lt;&lt;@</literal> <type>anyarray</type>
+---
+> +        <type>anyelement</type> <literal>&lt;&lt;@</literal> <type>anyarray</type>
+41c41
+< index d68d12d515..a744609a6b 100644
+---
+> index d68d12d515..981513b765 100644
+58c58
+< +      <entry><literal>@&gt;&gt; (anyarray,anycompatiblenonarray)</literal></entry>
+---
+> +      <entry><literal>@&gt;&gt; (anyarray,anyelement)</literal></entry>
+61c61
+< +      <entry><literal>&lt;&lt;@ (anycompatiblenonarray,anyarray)</literal></entry>
+---
+> +      <entry><literal>&lt;&lt;@ (anyelement,anyarray)</literal></entry>

@@ -1,144 +1,3 @@
-<h1 id="top">🧐🐘<code>anyarray_anyelement_operators-v3.patch</code></h1>
-
-1. [About](#about)
-1. [Installation](#installation)
-1. [Usage](#usage)
-1. [Review](#review)
-    1. [doc/src/sgml/func.sgml](#func-sgml)
-    1. [doc/src/sgml/gin.sgml](#gin-sgml)
-    1. [doc/src/sgml/indices.sgml](#indices-sgml)
-    1. [src/backend/access/gin/ginarrayproc.c](#ginarrayproc-c)
-    1. [src/backend/utils/adt/arrayfuncs.c](#arrayfuncs-c)
-    1. [src/include/catalog/pg_amop.dat](#pg_amop-dat)
-    1. [src/include/catalog/pg_operator.dat](#pg_operator-dat)
-    1. [src/include/catalog/pg_proc.dat](#pg_proc-dat)
-    1. [src/test/regress/expected/arrays.out](#arrays-out)
-    1. [src/test/regress/expected/opr_sanity.out](#opr_sanity-out)
-    1. [src/test/regress/sql/arrays.sql](#arrays-sql)
-
-<h2 id="about">1. About</h2>
-
-This is a review of Mark Rofail's patch [anyarray_anyelement_operators-v3.patch] submitted to the [Commitfest-2021-03].
-
-    $ sha512sum anyarray_anyelement_operators-v3.patch
-    0219c4fb646f2708f527710ebd9dda307361fcca2174abb7d3d56ea50a8c3c105173c94c1c46b666fdd1a0366d1501561c260cefc7057787d85c9b57620abadf
-
-[anyarray_anyelement_operators-v3.patch]: https://www.postgresql.org/message-id/attachment/119326/anyarray_anyelement_operators-v3.patch
-[Commitfest-2021-03]: https://commitfest.postgresql.org/32/2966/
-
-<h2 id="installation">2. Installation</h2>
-
-Patch and compile `PostgreSQL` with:
-
-    $ git clone git://git.postgresql.org/git/postgresql.git
-    $ cd postgresql
-    $ patch -p1 < ~/Downloads/anyarray_anyelement_operators-v3.patch
-    $ ./configure --prefix=$HOME/pg-head
-    $ make -j16
-    $ make install
-    $ export PATH=$HOME/pg-head/bin:$PATH
-    $ initdb -E UTF8 -k -D $HOME/pg-head-data
-    $ pg_ctl -D $HOME/pg-head-data -l /tmp/logfile start
-    $ createdb $USER
-    $ make installcheck
-
-    =======================
-    All 202 tests passed.
-    =======================
-
-To run test the `type-test.sql` script, first run the PostgreSQL regressions test, see above, then:
-
-    $ git clone https://github.com/joelonsql/anyarray_anyelement_operators.git
-    $ cd anyarray_anyelement_operators
-    $ psql -f type-test.sql regression
-
-    ========================
-    0 of 5202 tests failed.
-    ========================
-
-The generated commands can be extracted to create a test sql/expected pair,
-for inclusion in the normal test suite, should it be desired.
-
-    $ psql -f type-test.sql regression 2> type-test.out
-    $ grep -A 3 -E '^-- TEST:' type-test.out | grep -v -E '^--' > anyarray_anyelement_operators.sql
-    $ grep -A 6 -E '^-- EXPECTED:' type-test.out | grep -v -E '^--' > anyarray_anyelement_operators.expected
-
-The `anyarray_anyelement_operators.expected` file can then later be verified to produce the same output
-as running the `anyarray_anyelement_operators.sql` file.
-
-    $ psql -e -t -A -f anyarray_anyelement_operators.sql regression > anyarray_anyelement_operators.out
-    $ diff anyarray_anyelement_operators.expected anyarray_anyelement_operators.out && echo OK
-
-The test will show any differences found between the `@>>` and `<<@` operator and `ANY()` for
-values of same and different types, mined by digging through all data produced by the PostgreSQL regression tests.
-
-For compatible values, currently only exactly the same types as left and right operands
-(where )
-
-<h2 id="usage">3. Usage</h2>
-
-Use with:
-
-    $ psql
-
-```sql
-\a
-\t
-
---
--- display 🐘 instead of nothing for NULL values
---
-\pset null '🐘'
-
-SELECT ARRAY[]::int[] @>> 1;
-f
-
-SELECT ARRAY[1] @>> 1;
-t
-
-SELECT ARRAY[2] @>> 1;
-f
-
-SELECT ARRAY[2,1] @>> 1;
-t
-
-SELECT ARRAY[2,1] @>> 2;
-t
-
-SELECT ARRAY[2,1] @>> 3;
-f
-
-SELECT ARRAY[2,1] @>> NULL;
-🐘
-
-SELECT 1 <<@ ARRAY[]::int[];
-f
-
-SELECT 1 <<@ ARRAY[1];
-t
-
-SELECT 1 <<@ ARRAY[2];
-f
-
-SELECT 1 <<@ ARRAY[2,1];
-t
-
-SELECT 2 <<@ ARRAY[2,1];
-t
-
-SELECT 3 <<@ ARRAY[2,1];
-f
-
-SELECT NULL <<@ ARRAY[2,1];
-🐘
-
-```
-
-<h2 id="review">4. Review</h2>
-
-<h3 id="func-sgml"><code>doc/src/sgml/func.sgml</code></h3>
-
-```diff
 diff --git a/doc/src/sgml/func.sgml b/doc/src/sgml/func.sgml
 index 1ab31a9056..a7cfb16d8b 100644
 --- a/doc/src/sgml/func.sgml
@@ -178,11 +37,6 @@ index 1ab31a9056..a7cfb16d8b 100644
        <row>
         <entry role="func_table_entry"><para role="func_signature">
          <type>anyarray</type> <literal>&amp;&amp;</literal> <type>anyarray</type>
-```
-
-<h3 id="gin-sgml"><code>doc/src/sgml/gin.sgml</code></h3>
-
-```diff
 diff --git a/doc/src/sgml/gin.sgml b/doc/src/sgml/gin.sgml
 index d68d12d515..981513b765 100644
 --- a/doc/src/sgml/gin.sgml
@@ -209,11 +63,6 @@ index d68d12d515..981513b765 100644
       <row>
        <entry><literal>= (anyarray,anyarray)</literal></entry>
       </row>
-```
-
-<h3 id="indices-sgml"><code>doc/src/sgml/indices.sgml</code></h3>
-
-```diff
 diff --git a/doc/src/sgml/indices.sgml b/doc/src/sgml/indices.sgml
 index 623962d1d8..6de6c33c75 100644
 --- a/doc/src/sgml/indices.sgml
@@ -227,11 +76,6 @@ index 623962d1d8..6de6c33c75 100644
  </synopsis>
  
     (See <xref linkend="functions-array"/> for the meaning of
-```
-
-<h3 id="ginarrayproc-c"><code>src/backend/access/gin/ginarrayproc.c</code></h3>
-
-```diff
 diff --git a/src/backend/access/gin/ginarrayproc.c b/src/backend/access/gin/ginarrayproc.c
 index bf73e32932..b10bd04ec8 100644
 --- a/src/backend/access/gin/ginarrayproc.c
@@ -327,11 +171,6 @@ index bf73e32932..b10bd04ec8 100644
  		case GinContainedStrategy:
  			/* can't do anything else useful here */
  			res = GIN_MAYBE;
-```
-
-<h3 id="arrayfuncs-c"><code>src/backend/utils/adt/arrayfuncs.c</code></h3>
-
-```diff
 diff --git a/src/backend/utils/adt/arrayfuncs.c b/src/backend/utils/adt/arrayfuncs.c
 index f7012cc5d9..8650c62201 100644
 --- a/src/backend/utils/adt/arrayfuncs.c
@@ -480,11 +319,6 @@ index f7012cc5d9..8650c62201 100644
  /*-----------------------------------------------------------------------------
   * Array iteration functions
   *		These functions are used to iterate efficiently through arrays
-```
-
-<h3 id="pg_amop-dat"><code>src/include/catalog/pg_amop.dat</code></h3>
-
-```diff
 diff --git a/src/include/catalog/pg_amop.dat b/src/include/catalog/pg_amop.dat
 index 0f7ff63669..8a14fc7140 100644
 --- a/src/include/catalog/pg_amop.dat
@@ -499,11 +333,6 @@ index 0f7ff63669..8a14fc7140 100644
  
  # btree enum_ops
  { amopfamily => 'btree/enum_ops', amoplefttype => 'anyenum',
-```
-
-<h3 id="pg_operator-dat"><code>src/include/catalog/pg_operator.dat</code></h3>
-
-```diff
 diff --git a/src/include/catalog/pg_operator.dat b/src/include/catalog/pg_operator.dat
 index 0d4eac8f96..7ef071135c 100644
 --- a/src/include/catalog/pg_operator.dat
@@ -536,11 +365,6 @@ index 0d4eac8f96..7ef071135c 100644
  
  # capturing operators to preserve pre-8.3 behavior of text concatenation
  { oid => '2779', descr => 'concatenate',
-```
-
-<h3 id="pg_proc-dat"><code>src/include/catalog/pg_proc.dat</code></h3>
-
-```diff
 diff --git a/src/include/catalog/pg_proc.dat b/src/include/catalog/pg_proc.dat
 index 1487710d59..aa9d9f7291 100644
 --- a/src/include/catalog/pg_proc.dat
@@ -558,11 +382,6 @@ index 1487710d59..aa9d9f7291 100644
  
  # BRIN minmax
  { oid => '3383', descr => 'BRIN minmax support',
-```
-
-<h3 id="arrays-out"><code>src/test/regress/expected/arrays.out</code></h3>
-
-```diff
 diff --git a/src/test/regress/expected/arrays.out b/src/test/regress/expected/arrays.out
 index 8bc7721e7d..95c9ae5443 100644
 --- a/src/test/regress/expected/arrays.out
@@ -694,11 +513,6 @@ index 8bc7721e7d..95c9ae5443 100644
  SELECT * FROM array_op_test WHERE t && '{AAAAAAAAAA646}' ORDER BY seqno;
   seqno |        i         |                                 t                                  
  -------+------------------+--------------------------------------------------------------------
-```
-
-<h3 id="opr_sanity-out"><code>src/test/regress/expected/opr_sanity.out</code></h3>
-
-```diff
 diff --git a/src/test/regress/expected/opr_sanity.out b/src/test/regress/expected/opr_sanity.out
 index 254ca06d3d..5de5ab6d13 100644
 --- a/src/test/regress/expected/opr_sanity.out
@@ -737,11 +551,6 @@ index 254ca06d3d..5de5ab6d13 100644
  
  -- Check that all opclass search operators have selectivity estimators.
  -- This is not absolutely required, but it seems a reasonable thing
-```
-
-<h3 id="arrays-sql"><code>src/test/regress/sql/arrays.sql</code></h3>
-
-```diff
 diff --git a/src/test/regress/sql/arrays.sql b/src/test/regress/sql/arrays.sql
 index c40619a8d5..b5eec945f7 100644
 --- a/src/test/regress/sql/arrays.sql
@@ -778,4 +587,3 @@ index c40619a8d5..b5eec945f7 100644
  SELECT * FROM array_op_test WHERE t && '{AAAAAAAAAA646}' ORDER BY seqno;
  SELECT * FROM array_op_test WHERE t @> '{AAAAAAAA72908,AAAAAAAAAA646}' ORDER BY seqno;
  SELECT * FROM array_op_test WHERE t && '{AAAAAAAA72908,AAAAAAAAAA646}' ORDER BY seqno;
-```
