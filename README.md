@@ -1,4 +1,4 @@
-<h1 id="top">🧐🐘<code>anyarray_anyelement_operators-v3.patch</code></h1>
+<h1 id="top">🧐🐘<code>anyarray_anyelement_operators-v4.patch</code></h1>
 
 1. [About](#about)
 1. [Installation](#installation)
@@ -18,12 +18,12 @@
 
 <h2 id="about">1. About</h2>
 
-This is a review of Mark Rofail's patch [anyarray_anyelement_operators-v3.patch] submitted to the [Commitfest-2021-03].
+This is a review of Mark Rofail's patch [anyarray_anyelement_operators-v4.patch] submitted to the [Commitfest-2021-03].
 
-    $ sha512sum anyarray_anyelement_operators-v3.patch
-    0219c4fb646f2708f527710ebd9dda307361fcca2174abb7d3d56ea50a8c3c105173c94c1c46b666fdd1a0366d1501561c260cefc7057787d85c9b57620abadf
+    $ sha512sum anyarray_anyelement_operators-v4.patch
+    46577c68b043eb7164185b36485581028921a6d239f3dfb311e4175ceabeb1191f62a71a8f9fc1ab7f59e95e18bbcf209ed98f5aa5a8540faf0afe5dc0b00b79
 
-[anyarray_anyelement_operators-v3.patch]: https://www.postgresql.org/message-id/attachment/119326/anyarray_anyelement_operators-v3.patch
+[anyarray_anyelement_operators-v4.patch]: https://www.postgresql.org/message-id/attachment/119360/anyarray_anyelement_operators-v4.patch
 [Commitfest-2021-03]: https://commitfest.postgresql.org/32/2966/
 
 <h2 id="installation">2. Installation</h2>
@@ -32,7 +32,7 @@ Patch and compile `PostgreSQL` with:
 
     $ git clone git://git.postgresql.org/git/postgresql.git
     $ cd postgresql
-    $ patch -p1 < ~/Downloads/anyarray_anyelement_operators-v3.patch
+    $ patch -p1 < ~/Downloads/anyarray_anyelement_operators-v4.patch
     $ ./configure --prefix=$HOME/pg-head
     $ make -j16
     $ make install
